@@ -43,7 +43,6 @@ body {
 
 .instruction {
   position: fixed;
-
   left: 28px;
   top: 28px;
 
@@ -64,15 +63,12 @@ body {
 
 .machine {
   position: relative;
-
   width: 560px;
-
   margin: 20px auto;
 }
 
 .machine-image {
   display: block;
-
   width: 100%;
   height: auto;
 
@@ -126,7 +122,9 @@ body {
    ROW A
 ================================================== */
 
-/* A1 — GroundCycle */
+/* A1
+   第一竖排不动
+*/
 
 #a1 {
   width: 125px;
@@ -137,24 +135,28 @@ body {
 }
 
 
-/* A2 — Social Cloud */
+/* A2
+   第二竖排 → 46%
+*/
 
 #a2 {
   width: 118px;
   height: 118px;
 
-  left: 50%;
+  left: 46%;
   top: 18%;
 }
 
 
-/* A3 — Dad Healer */
+/* A3
+   第三竖排 → 76%
+*/
 
 #a3 {
   width: 118px;
   height: 118px;
 
-  left: 82%;
+  left: 76%;
   top: 18%;
 }
 
@@ -162,8 +164,6 @@ body {
 /* ==================================================
    ROW B
 ================================================== */
-
-/* B1 — Before I Speak */
 
 #b1 {
   width: 118px;
@@ -174,24 +174,20 @@ body {
 }
 
 
-/* B2 — Perfume */
-
 #b2 {
   width: 115px;
   height: 135px;
 
-  left: 50%;
+  left: 46%;
   top: 35%;
 }
 
-
-/* B3 — Body Fonts */
 
 #b3 {
   width: 118px;
   height: 118px;
 
-  left: 82%;
+  left: 76%;
   top: 35%;
 }
 
@@ -199,8 +195,6 @@ body {
 /* ==================================================
    ROW C
 ================================================== */
-
-/* C1 — City Walk */
 
 #c1 {
   width: 118px;
@@ -211,24 +205,20 @@ body {
 }
 
 
-/* C2 — Quiet Town */
-
 #c2 {
   width: 118px;
   height: 122px;
 
-  left: 50%;
+  left: 46%;
   top: 52%;
 }
 
-
-/* C3 — Hypertext */
 
 #c3 {
   width: 112px;
   height: 118px;
 
-  left: 82%;
+  left: 76%;
   top: 52%;
 }
 
@@ -236,8 +226,6 @@ body {
 /* ==================================================
    ROW D
 ================================================== */
-
-/* D1 — In Between */
 
 #d1 {
   width: 100px;
@@ -283,12 +271,12 @@ body {
 }
 
 #a2-label {
-  left: 50%;
+  left: 46%;
   top: 25.5%;
 }
 
 #a3-label {
-  left: 82%;
+  left: 76%;
   top: 25.5%;
 }
 
@@ -303,12 +291,12 @@ body {
 }
 
 #b2-label {
-  left: 50%;
+  left: 46%;
   top: 42.5%;
 }
 
 #b3-label {
-  left: 82%;
+  left: 76%;
   top: 42.5%;
 }
 
@@ -323,12 +311,12 @@ body {
 }
 
 #c2-label {
-  left: 50%;
+  left: 46%;
   top: 59.5%;
 }
 
 #c3-label {
-  left: 82%;
+  left: 76%;
   top: 59.5%;
 }
 
@@ -400,7 +388,6 @@ body {
 
 .coin.dragging {
   cursor: grabbing;
-
   transform: scale(1.13);
 }
 
@@ -481,7 +468,6 @@ body {
 
   .machine {
     width: min(560px, 92vw);
-
     margin-top: 70px;
   }
 
