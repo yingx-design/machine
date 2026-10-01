@@ -1,108 +1,1039 @@
-<!-- =====================
-     ROW A
-====================== -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- A1 GroundCycle -->
-<img
-  src="groundcycle.png"
-  class="product"
-  data-code="A1"
-  style="left:19%; top:25.5%;"
->
-<div class="code" style="left:19%; top:31.2%;">A1</div>
+<title>Design Vending Machine</title>
 
-<!-- A2 Social Cloud -->
-<img
-  src="social-cloud.png"
-  class="product"
-  data-code="A2"
-  style="left:39%; top:25.5%;"
->
-<div class="code" style="left:39%; top:31.2%;">A2</div>
+<style>
+* {
+  box-sizing: border-box;
+}
 
-<!-- A3 Dad Healer -->
-<img
-  src="dad-healer.png"
-  class="product"
-  data-code="A3"
-  style="left:59%; top:25.5%;"
->
-<div class="code" style="left:59%; top:31.2%;">A3</div>
+html,
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  background: #efefef;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* =========================
+   PAGE
+========================= */
+
+.stage {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.title {
+  position: fixed;
+  left: 28px;
+  top: 28px;
+  font-size: 16px;
+  letter-spacing: 1.6px;
+  z-index: 20;
+}
+
+/* =========================
+   VENDING MACHINE
+========================= */
+
+.machine {
+  position: relative;
+  width: min(680px, 48vw);
+  margin: 25px auto 0;
+  aspect-ratio: 680 / 1080;
+}
+
+.machine-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/*
+  IMPORTANT:
+  商品不再按照整个网页定位。
+  这个区域对应机器左边的玻璃货架。
+*/
+
+.products-layer {
+  position: absolute;
+
+  left: 5.5%;
+  top: 10%;
+
+  width: 71%;
+  height: 65%;
+
+  z-index: 5;
+}
+
+/* =========================
+   PRODUCTS
+========================= */
+
+.product {
+  position: absolute;
+
+  width: 15%;
+  height: 13%;
+
+  object-fit: contain;
+
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+
+  cursor: pointer;
+  z-index: 6;
+
+  transition:
+    filter 0.2s ease,
+    transform 0.2s ease;
+}
+
+.product:hover {
+  filter: brightness(1.08);
+  transform:
+    translate(-50%, -50%)
+    scale(1.08);
+}
+
+/* 不同作品可以稍微调整尺寸 */
+
+.product[data-code="A1"] {
+  width: 13%;
+}
+
+.product[data-code="A2"] {
+  width: 18%;
+}
+
+.product[data-code="A3"] {
+  width: 18%;
+}
+
+.product[data-code="B1"] {
+  width: 17%;
+}
+
+.product[data-code="B2"] {
+  width: 15%;
+}
+
+.product[data-code="B3"] {
+  width: 18%;
+}
+
+.product[data-code="C1"] {
+  width: 17%;
+}
+
+.product[data-code="C2"] {
+  width: 18%;
+}
+
+.product[data-code="C3"] {
+  width: 17%;
+}
+
+.product[data-code="D1"] {
+  width: 15%;
+}
+
+/* =========================
+   PRODUCT CODE
+========================= */
+
+.code {
+  position: absolute;
+
+  transform: translate(-50%, -50%);
+
+  padding: 3px 6px;
+
+  background: white;
+  color: black;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  border-radius: 2px;
+
+  z-index: 8;
+  pointer-events: none;
+}
+
+/* =========================
+   COIN
+========================= */
+
+.coin {
+  position: fixed;
+
+  left: 45px;
+  bottom: 50px;
+
+  width: 70px;
+  height: 70px;
+
+  object-fit: contain;
+
+  cursor: grab;
+
+  z-index: 100;
+
+  user-select: none;
+  touch-action: none;
+
+  filter: drop-shadow(0 7px 7px rgba(0,0,0,.18));
+}
+
+.coin:active {
+  cursor: grabbing;
+}
+
+/* =========================
+   COIN SLOT TARGET
+========================= */
+
+.coin-target {
+  position: absolute;
+
+  right: 4%;
+  top: 26%;
+
+  width: 16%;
+  height: 18%;
+
+  z-index: 10;
+}
+
+/* =========================
+   PRICE
+========================= */
+
+.price {
+  position: fixed;
+
+  left: calc(50% + 360px);
+  top: 250px;
+
+  color: #ff2a2a;
+
+  font-family: monospace;
+  font-size: 16px;
+
+  z-index: 20;
+}
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message {
+  position: fixed;
+
+  left: calc(50% + 330px);
+  top: 405px;
+
+  padding: 10px 18px;
+
+  background: #111;
+  color: white;
+
+  font-size: 15px;
+  font-weight: bold;
+
+  opacity: 0;
+
+  transition: opacity .25s ease;
+
+  z-index: 20;
+}
+
+.message.show {
+  opacity: 1;
+}
+
+/* =========================
+   INSTRUCTIONS
+========================= */
+
+.instructions {
+  position: fixed;
+
+  left: 28px;
+  top: 28px;
+
+  font-size: 15px;
+  letter-spacing: 1.5px;
+
+  z-index: 20;
+}
+
+/* =========================
+   FALLING PRODUCT
+========================= */
+
+.falling-product {
+  position: fixed;
+
+  object-fit: contain;
+
+  pointer-events: none;
+
+  z-index: 999;
+
+  transition:
+    left .85s cubic-bezier(.35,.05,.7,1),
+    top .85s cubic-bezier(.35,.05,.7,1),
+    transform .85s cubic-bezier(.35,.05,.7,1);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 900px) {
+
+  .machine {
+    width: 78vw;
+    margin-top: 70px;
+  }
+
+  .title,
+  .instructions {
+    left: 15px;
+    top: 15px;
+  }
+
+  .coin {
+    width: 55px;
+    height: 55px;
+    left: 20px;
+    bottom: 30px;
+  }
+
+  .price,
+  .message {
+    display: none;
+  }
+}
+</style>
+</head>
 
 
-<!-- =====================
-     ROW B
-====================== -->
+<body>
 
-<!-- B1 Before I Speak -->
-<img
-  src="before-i-speak.png"
-  class="product"
-  data-code="B1"
-  style="left:19%; top:43.5%;"
->
-<div class="code" style="left:19%; top:49.2%;">B1</div>
+<div class="stage">
 
-<!-- B2 Perfume -->
-<img
-  src="perfume.png"
-  class="product"
-  data-code="B2"
-  style="left:39%; top:43.5%;"
->
-<div class="code" style="left:39%; top:49.2%;">B2</div>
-
-<!-- B3 Body Fonts -->
-<img
-  src="body-fonts.png"
-  class="product"
-  data-code="B3"
-  style="left:59%; top:43.5%;"
->
-<div class="code" style="left:59%; top:49.2%;">B3</div>
+  <div class="instructions">
+    DRAG THE COIN → SELECT SOMETHING
+  </div>
 
 
-<!-- =====================
-     ROW C
-====================== -->
+  <!-- =========================
+       MACHINE
+  ========================== -->
 
-<!-- C1 City Walk -->
-<img
-  src="city-walk.png"
-  class="product"
-  data-code="C1"
-  style="left:19%; top:61.5%;"
->
-<div class="code" style="left:19%; top:67.2%;">C1</div>
+  <div class="machine" id="machine">
 
-<!-- C2 Quiet Town -->
-<img
-  src="quiet-town.png"
-  class="product"
-  data-code="C2"
-  style="left:39%; top:61.5%;"
->
-<div class="code" style="left:39%; top:67.2%;">C2</div>
-
-<!-- C3 Hypertext -->
-<img
-  src="hypertext.png"
-  class="product"
-  data-code="C3"
-  style="left:59%; top:61.5%;"
->
-<div class="code" style="left:59%; top:67.2%;">C3</div>
+    <img
+      src="vending-machine.png"
+      class="machine-bg"
+      alt="Vending Machine"
+    >
 
 
-<!-- =====================
-     ROW D
-====================== -->
+    <!-- 投币检测区域 -->
+    <div
+      class="coin-target"
+      id="coinTarget">
+    </div>
 
-<!-- D1 In Between -->
-<img
-  src="in-between.png"
-  class="product"
-  data-code="D1"
-  style="left:19%; top:76.5%;"
->
-<div class="code" style="left:19%; top:82%;">D1</div>
+
+    <!-- =========================
+         PRODUCTS AREA
+    ========================== -->
+
+    <div
+      class="products-layer"
+      id="productsLayer">
+
+
+      <!-- =====================
+           ROW A
+      ====================== -->
+
+      <!-- A1 GroundCycle -->
+
+      <img
+        src="groundcycle.png"
+        class="product"
+        data-code="A1"
+        style="
+          left:12%;
+          top:17%;
+        "
+      >
+
+      <div
+        class="code"
+        style="
+          left:12%;
+          top:25%;
+        ">
+        A1
+      </div>
+
+
+      <!-- A2 Social Cloud -->
+
+      <img
+        src="social-cloud.png"
+        class="product"
+        data-code="A2"
+        style="
+          left:38%;
+          top:17%;
+        "
+      >
+
+      <div
+        class="code"
+        style="
+          left:38%;
+          top:25%;
+        ">
+        A2
+      </div>
+
+
+      <!-- A3 Dad Healer -->
+
+      <img
+        src="dad-healer.png"
+        class="product"
+        data-code="A3"
+        style="
+          left:64%;
+          top:17%;
+        "
+      >
+
+      <div
+        class="code"
+        style="
+          left:64%;
+          top:25%;
+        ">
+        A3
+      </div>
+
+
+
+      <!-- =====================
+           ROW B
+      ====================== -->
+
+      <!-- B1 Before I Speak -->
+
+      <img
+        src="before-i-speak.png"
+        class="product"
+        data-code="B1"
+        style="
+          left:12%;
+          top:42%;
+        "
+      >
+
+      <div
+        class="code"
+        style="
+          left:12%;
+          top:50%;
+        ">
+        B1
+      </div>
+
+
+      <!-- B2 Perfume -->
+
+      <img
+        src="perfume.png"
+        class="product"
+        data-code="B2"
+        style="
+          left:38%;
+          top:42%;
+        "
+      >
+
+      <div
+        class="code"
+        style="
+          left:38%;
+          top:50%;
+        ">
+        B2
+      </div>
+
+
+      <!-- B3 Body Fonts -->
+
+      <img
+        src="body-fonts.png"
+        class="product"
+        data-code="B3"
+        style="
+          left:64%;
+          top:42%;
+        "
+      >
+
+      <div
+        class="code"
+        style="
+          left:64%;
+          top:50%;
+        ">
+        B3
+      </div>
+
+
+
+      <!-- =====================
+           ROW C
+      ====================== -->
+
+      <!-- C1 City Walk -->
+
+      <img
+        src="city-walk.png"
+        class="product"
+        data-code="C1"
+        style="
+          left:12%;
+          top:67%;
+        "
+      >
+
+      <div
+        class="code"
+        style="
+          left:12%;
+          top:75%;
+        ">
+        C1
+      </div>
+
+
+      <!-- C2 Quiet Town -->
+
+      <img
+        src="quiet-town.png"
+        class="product"
+        data-code="C2"
+        style="
+          left:38%;
+          top:67%;
+        "
+      >
+
+      <div
+        class="code"
+        style="
+          left:38%;
+          top:75%;
+        ">
+        C2
+      </div>
+
+
+      <!-- C3 Hypertext -->
+
+      <img
+        src="hypertext.png"
+        class="product"
+        data-code="C3"
+        style="
+          left:64%;
+          top:67%;
+        "
+      >
+
+      <div
+        class="code"
+        style="
+          left:64%;
+          top:75%;
+        ">
+        C3
+      </div>
+
+
+
+      <!-- =====================
+           ROW D
+      ====================== -->
+
+      <!-- D1 In Between -->
+
+      <img
+        src="in-between.png"
+        class="product"
+        data-code="D1"
+        style="
+          left:12%;
+          top:91%;
+        "
+      >
+
+      <div
+        class="code"
+        style="
+          left:12%;
+          top:98%;
+        ">
+        D1
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       COIN
+  ========================== -->
+
+  <img
+    src="coin.png"
+    class="coin"
+    id="coin"
+    alt="Coin"
+  >
+
+
+  <div
+    class="price"
+    id="price">
+    $0.00
+  </div>
+
+
+  <div
+    class="message"
+    id="message">
+    THANK YOU
+  </div>
+
+</div>
+
+
+
+<script>
+
+/* =========================
+   VARIABLES
+========================= */
+
+const coin =
+  document.getElementById("coin");
+
+const coinTarget =
+  document.getElementById("coinTarget");
+
+const machine =
+  document.getElementById("machine");
+
+const price =
+  document.getElementById("price");
+
+const message =
+  document.getElementById("message");
+
+const products =
+  document.querySelectorAll(".product");
+
+
+let paid = false;
+
+let draggingCoin = false;
+
+let offsetX = 0;
+let offsetY = 0;
+
+
+/* =========================
+   ORIGINAL COIN POSITION
+========================= */
+
+function resetCoin() {
+
+  coin.style.left = "45px";
+
+  coin.style.top = "";
+
+  coin.style.bottom = "50px";
+}
+
+
+/* =========================
+   START DRAG
+========================= */
+
+coin.addEventListener(
+  "pointerdown",
+  function(event) {
+
+    if (paid) return;
+
+    draggingCoin = true;
+
+    const rect =
+      coin.getBoundingClientRect();
+
+    offsetX =
+      event.clientX - rect.left;
+
+    offsetY =
+      event.clientY - rect.top;
+
+    coin.style.bottom = "auto";
+
+    coin.setPointerCapture(
+      event.pointerId
+    );
+
+  }
+);
+
+
+/* =========================
+   DRAG COIN
+========================= */
+
+coin.addEventListener(
+  "pointermove",
+  function(event) {
+
+    if (!draggingCoin) return;
+
+    coin.style.left =
+      (event.clientX - offsetX) +
+      "px";
+
+    coin.style.top =
+      (event.clientY - offsetY) +
+      "px";
+
+  }
+);
+
+
+/* =========================
+   DROP COIN
+========================= */
+
+coin.addEventListener(
+  "pointerup",
+  function(event) {
+
+    if (!draggingCoin) return;
+
+    draggingCoin = false;
+
+
+    const coinRect =
+      coin.getBoundingClientRect();
+
+    const targetRect =
+      coinTarget.getBoundingClientRect();
+
+
+    const coinCenterX =
+      coinRect.left +
+      coinRect.width / 2;
+
+    const coinCenterY =
+      coinRect.top +
+      coinRect.height / 2;
+
+
+    const inside =
+      coinCenterX >
+      targetRect.left &&
+
+      coinCenterX <
+      targetRect.right &&
+
+      coinCenterY >
+      targetRect.top &&
+
+      coinCenterY <
+      targetRect.bottom;
+
+
+    if (inside) {
+
+      insertCoin();
+
+    } else {
+
+      resetCoin();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   INSERT COIN
+========================= */
+
+function insertCoin() {
+
+  paid = true;
+
+  price.textContent =
+    "$1.00";
+
+  coin.style.display =
+    "none";
+
+  document.body.style.cursor =
+    "pointer";
+
+}
+
+
+/* =========================
+   PRODUCT CLICK
+========================= */
+
+products.forEach(
+  function(product) {
+
+    product.addEventListener(
+      "click",
+      function() {
+
+        if (!paid) {
+
+          flashPrice();
+
+          return;
+
+        }
+
+        dispenseProduct(product);
+
+      }
+    );
+
+  }
+);
+
+
+/* =========================
+   PRICE FLASH
+========================= */
+
+function flashPrice() {
+
+  price.textContent =
+    "INSERT COIN";
+
+  setTimeout(
+    function() {
+
+      if (!paid) {
+
+        price.textContent =
+          "$0.00";
+
+      }
+
+    },
+    900
+  );
+
+}
+
+
+/* =========================
+   DISPENSE
+========================= */
+
+function dispenseProduct(product) {
+
+  if (!paid) return;
+
+
+  paid = false;
+
+
+  const rect =
+    product.getBoundingClientRect();
+
+  const machineRect =
+    machine.getBoundingClientRect();
+
+
+  /*
+    创建一个掉落用的复制品。
+
+    原来的商品仍然留在货架，
+    所以不会导致整个排版乱掉。
+  */
+
+  const clone =
+    product.cloneNode(true);
+
+
+  clone.className =
+    "falling-product";
+
+
+  clone.style.width =
+    rect.width + "px";
+
+  clone.style.height =
+    rect.height + "px";
+
+
+  clone.style.left =
+    rect.left + "px";
+
+  clone.style.top =
+    rect.top + "px";
+
+
+  clone.style.transform =
+    "rotate(0deg)";
+
+
+  document.body.appendChild(
+    clone
+  );
+
+
+  /*
+    机器取货口的位置
+  */
+
+  const targetX =
+    machineRect.left +
+    machineRect.width *
+    0.35;
+
+
+  const targetY =
+    machineRect.top +
+    machineRect.height *
+    0.80;
+
+
+  /*
+    下一帧开始动画
+  */
+
+  requestAnimationFrame(
+    function() {
+
+      requestAnimationFrame(
+        function() {
+
+          clone.style.left =
+            targetX -
+            rect.width / 2 +
+            "px";
+
+          clone.style.top =
+            targetY -
+            rect.height / 2 +
+            "px";
+
+          clone.style.transform =
+            "rotate(12deg)";
+
+        }
+      );
+
+    }
+  );
+
+
+  /*
+    THANK YOU
+  */
+
+  message.classList.add(
+    "show"
+  );
+
+
+  price.textContent =
+    "$0.00";
+
+
+  /*
+    动画结束后，
+    商品停在取货口一会儿。
+  */
+
+  setTimeout(
+    function() {
+
+      clone.style.transition =
+        "opacity .5s ease";
+
+      clone.style.opacity =
+        "0";
+
+  }, 2300);
+
+
+  /*
+    删除掉落商品
+  */
+
+  setTimeout(
+    function() {
+
+      clone.remove();
+
+      message.classList.remove(
+        "show"
+      );
+
+      coin.style.display =
+        "block";
+
+      resetCoin();
+
+  }, 2900);
+
+}
+
+</script>
+
+</body>
+</html>
