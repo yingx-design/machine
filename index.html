@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,11 @@
 <title>Take Your Design</title>
 
 <style>
+
+/* ==================================================
+   BASIC
+================================================== */
+
 * {
   box-sizing: border-box;
 }
@@ -24,33 +30,35 @@ body {
   overflow-x: hidden;
 }
 
-/* ==============================
-   PAGE
-============================== */
-
 .page {
   position: relative;
   width: 100%;
   min-height: 100vh;
 }
 
+
+/* ==================================================
+   INSTRUCTION
+================================================== */
+
 .instruction {
   position: fixed;
+
   left: 28px;
   top: 28px;
+
+  z-index: 100;
 
   font-size: 15px;
   letter-spacing: 1.5px;
 
   color: #111;
-
-  z-index: 50;
 }
 
 
-/* ==============================
+/* ==================================================
    MACHINE
-============================== */
+================================================== */
 
 .machine {
   position: relative;
@@ -68,9 +76,9 @@ body {
 }
 
 
-/* ==============================
+/* ==================================================
    PRODUCTS
-============================== */
+================================================== */
 
 .product {
   position: absolute;
@@ -80,16 +88,13 @@ body {
   object-fit: contain;
 
   transform: translate(-50%, -50%);
-
   transform-origin: center;
 
   cursor: pointer;
 
-  filter:
-    drop-shadow(
-      0 3px 2px
-      rgba(0,0,0,.15)
-    );
+  filter: drop-shadow(
+    0 3px 2px rgba(0,0,0,.15)
+  );
 
   transition:
     transform .15s ease,
@@ -101,17 +106,15 @@ body {
     translate(-50%, -50%)
     scale(1.08);
 
-  filter:
-    drop-shadow(
-      0 5px 4px
-      rgba(0,0,0,.22)
-    );
+  filter: drop-shadow(
+    0 5px 4px rgba(0,0,0,.22)
+  );
 }
 
 
-/* ==============================
+/* ==================================================
    PRODUCT SIZE
-============================== */
+================================================== */
 
 #a1 {
   width: 54px;
@@ -164,11 +167,11 @@ body {
 }
 
 
-/* ==============================
+/* ==================================================
    PRODUCT POSITION
-============================== */
+================================================== */
 
-/* ROW A */
+/* ---------- ROW A ---------- */
 
 #a1 {
   left: 17%;
@@ -186,7 +189,7 @@ body {
 }
 
 
-/* ROW B */
+/* ---------- ROW B ---------- */
 
 #b1 {
   left: 17%;
@@ -204,7 +207,7 @@ body {
 }
 
 
-/* ROW C */
+/* ---------- ROW C ---------- */
 
 #c1 {
   left: 17%;
@@ -222,7 +225,7 @@ body {
 }
 
 
-/* ROW D */
+/* ---------- ROW D ---------- */
 
 #d1 {
   left: 17%;
@@ -230,17 +233,16 @@ body {
 }
 
 
-/* ==============================
+/* ==================================================
    LABELS
-============================== */
+================================================== */
 
 .label {
   position: absolute;
 
   z-index: 20;
 
-  transform:
-    translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 
   background: white;
   color: black;
@@ -255,6 +257,8 @@ body {
   pointer-events: none;
 }
 
+
+/* ROW A */
 
 #a1-label {
   left: 17%;
@@ -272,6 +276,8 @@ body {
 }
 
 
+/* ROW B */
+
 #b1-label {
   left: 17%;
   top: 48%;
@@ -287,6 +293,8 @@ body {
   top: 48%;
 }
 
+
+/* ROW C */
 
 #c1-label {
   left: 17%;
@@ -304,17 +312,18 @@ body {
 }
 
 
+/* ROW D */
+
 #d1-label {
   left: 17%;
   top: 80%;
 }
 
 
-/* ==============================
+/* ==================================================
    COIN SLOT
-
-   红色区域就是有效投币区
-============================== */
+   红色区域 = 投币有效区域
+================================================== */
 
 .coin-slot {
   position: absolute;
@@ -327,19 +336,23 @@ body {
 
   z-index: 30;
 
-  background:
-    rgba(255, 0, 0, 0.20);
+  background: rgba(255,0,0,.20);
 
-  border:
-    2px solid red;
+  border: 2px solid red;
 
   border-radius: 8px;
+
+  pointer-events: none;
+
+  transition:
+    background .2s ease,
+    border .2s ease;
 }
 
 
-/* ==============================
+/* ==================================================
    COIN
-============================== */
+================================================== */
 
 .coin {
   position: fixed;
@@ -350,21 +363,25 @@ body {
   left: 45px;
   bottom: 45px;
 
-  object-fit: contain;
+  z-index: 9999;
 
-  z-index: 100;
+  object-fit: contain;
 
   cursor: grab;
 
   user-select: none;
+  -webkit-user-select: none;
 
   touch-action: none;
 
-  filter:
-    drop-shadow(
-      0 5px 5px
-      rgba(0,0,0,.18)
-    );
+  filter: drop-shadow(
+    0 5px 5px rgba(0,0,0,.18)
+  );
+
+  will-change:
+    left,
+    top,
+    transform;
 }
 
 .coin:active {
@@ -372,35 +389,36 @@ body {
 }
 
 
-/* ==============================
+/* ==================================================
    STATUS
-============================== */
+================================================== */
 
 .status {
   position: fixed;
 
-  left:
-    calc(50% + 360px);
-
+  left: calc(50% + 360px);
   top: 245px;
 
-  font-family: monospace;
+  z-index: 100;
 
+  font-family: monospace;
   font-size: 15px;
 
   color: #ff2525;
-
-  z-index: 50;
 }
 
+
+/* ==================================================
+   THANK YOU
+================================================== */
 
 .thankyou {
   position: fixed;
 
-  left:
-    calc(50% + 330px);
-
+  left: calc(50% + 330px);
   top: 405px;
+
+  z-index: 100;
 
   background: #111;
   color: white;
@@ -412,53 +430,41 @@ body {
 
   opacity: 0;
 
-  transition:
-    opacity .2s ease;
+  pointer-events: none;
 
-  z-index: 50;
+  transition: opacity .2s ease;
 }
-
 
 .thankyou.show {
   opacity: 1;
 }
 
 
-/* ==============================
-   FALLING ITEM
-============================== */
+/* ==================================================
+   FALLING PRODUCT
+================================================== */
 
 .dispensing {
   position: fixed;
 
-  z-index: 1000;
+  z-index: 9998;
 
   object-fit: contain;
 
   pointer-events: none;
 
   transform-origin: center;
-
-  transition:
-    left .75s
-      cubic-bezier(.4,.05,.75,.3),
-
-    top .75s
-      cubic-bezier(.4,.05,.75,.3),
-
-    transform .75s ease;
 }
 
 
-/* ==============================
+/* ==================================================
    MOBILE
-============================== */
+================================================== */
 
 @media (max-width: 850px) {
 
   .machine {
-    width:
-      min(560px, 92vw);
+    width: min(560px, 92vw);
 
     margin-top: 70px;
   }
@@ -478,19 +484,21 @@ body {
     bottom: 25px;
   }
 
-  .status,
-  .thankyou {
-    display: none;
-  }
 }
 
 </style>
+
 </head>
 
 
 <body>
 
 <div class="page">
+
+
+  <!-- ==========================================
+       INSTRUCTION
+  =========================================== -->
 
   <div
     class="instruction"
@@ -500,21 +508,29 @@ body {
   </div>
 
 
+
+  <!-- ==========================================
+       MACHINE
+  =========================================== -->
+
   <div
     class="machine"
     id="machine"
   >
 
-    <!-- MACHINE -->
 
     <img
       src="vending-machine.png"
       class="machine-image"
       alt="Vending Machine"
+      draggable="false"
     >
 
 
-    <!-- COIN TARGET -->
+
+    <!-- ========================================
+         COIN TARGET
+    ========================================= -->
 
     <div
       class="coin-slot"
@@ -522,15 +538,20 @@ body {
     ></div>
 
 
-    <!-- =====================
+
+    <!-- ========================================
          ROW A
-    ====================== -->
+    ========================================= -->
+
+
+    <!-- A1 -->
 
     <img
       src="groundcycle.png"
       class="product"
       id="a1"
       data-code="A1"
+      draggable="false"
     >
 
     <div
@@ -541,11 +562,15 @@ body {
     </div>
 
 
+
+    <!-- A2 -->
+
     <img
       src="social-cloud.png"
       class="product"
       id="a2"
       data-code="A2"
+      draggable="false"
     >
 
     <div
@@ -556,11 +581,15 @@ body {
     </div>
 
 
+
+    <!-- A3 -->
+
     <img
       src="dad-healer.png"
       class="product"
       id="a3"
       data-code="A3"
+      draggable="false"
     >
 
     <div
@@ -572,15 +601,19 @@ body {
 
 
 
-    <!-- =====================
+    <!-- ========================================
          ROW B
-    ====================== -->
+    ========================================= -->
+
+
+    <!-- B1 -->
 
     <img
       src="before-i-speak.png"
       class="product"
       id="b1"
       data-code="B1"
+      draggable="false"
     >
 
     <div
@@ -591,11 +624,15 @@ body {
     </div>
 
 
+
+    <!-- B2 -->
+
     <img
       src="perfume.png"
       class="product"
       id="b2"
       data-code="B2"
+      draggable="false"
     >
 
     <div
@@ -606,11 +643,15 @@ body {
     </div>
 
 
+
+    <!-- B3 -->
+
     <img
       src="body-fonts.png"
       class="product"
       id="b3"
       data-code="B3"
+      draggable="false"
     >
 
     <div
@@ -622,15 +663,19 @@ body {
 
 
 
-    <!-- =====================
+    <!-- ========================================
          ROW C
-    ====================== -->
+    ========================================= -->
+
+
+    <!-- C1 -->
 
     <img
       src="city-walk.png"
       class="product"
       id="c1"
       data-code="C1"
+      draggable="false"
     >
 
     <div
@@ -641,11 +686,15 @@ body {
     </div>
 
 
+
+    <!-- C2 -->
+
     <img
       src="quiet-town.png"
       class="product"
       id="c2"
       data-code="C2"
+      draggable="false"
     >
 
     <div
@@ -656,11 +705,15 @@ body {
     </div>
 
 
+
+    <!-- C3 -->
+
     <img
       src="hypertext.png"
       class="product"
       id="c3"
       data-code="C3"
+      draggable="false"
     >
 
     <div
@@ -672,15 +725,19 @@ body {
 
 
 
-    <!-- =====================
+    <!-- ========================================
          ROW D
-    ====================== -->
+    ========================================= -->
+
+
+    <!-- D1 -->
 
     <img
       src="in-between.png"
       class="product"
       id="d1"
       data-code="D1"
+      draggable="false"
     >
 
     <div
@@ -690,19 +747,28 @@ body {
       D1
     </div>
 
+
   </div>
 
 
 
-  <!-- COIN -->
+  <!-- ==========================================
+       COIN
+  =========================================== -->
 
   <img
     src="coin.png"
     class="coin"
     id="coin"
-    alt="coin"
+    alt="Coin"
+    draggable="false"
   >
 
+
+
+  <!-- ==========================================
+       STATUS
+  =========================================== -->
 
   <div
     class="status"
@@ -712,6 +778,11 @@ body {
   </div>
 
 
+
+  <!-- ==========================================
+       THANK YOU
+  =========================================== -->
+
   <div
     class="thankyou"
     id="thankyou"
@@ -719,89 +790,91 @@ body {
     THANK YOU
   </div>
 
+
 </div>
 
 
 
 <script>
 
-/* =====================================
+/* ==================================================
    ELEMENTS
-===================================== */
+================================================== */
 
 const coin =
-  document.getElementById(
-    "coin"
-  );
+  document.getElementById("coin");
 
 const coinSlot =
-  document.getElementById(
-    "coinSlot"
-  );
+  document.getElementById("coinSlot");
 
 const machine =
-  document.getElementById(
-    "machine"
-  );
+  document.getElementById("machine");
 
 const status =
-  document.getElementById(
-    "status"
-  );
+  document.getElementById("status");
 
 const thankyou =
-  document.getElementById(
-    "thankyou"
-  );
+  document.getElementById("thankyou");
 
 const instruction =
-  document.getElementById(
-    "instruction"
-  );
+  document.getElementById("instruction");
 
 const products =
-  document.querySelectorAll(
-    ".product"
-  );
+  document.querySelectorAll(".product");
 
 
-/* =====================================
+
+/* ==================================================
    STATE
-===================================== */
+================================================== */
 
 let hasCoin = false;
 
-let dragging = false;
-
-let dragOffsetX = 0;
-let dragOffsetY = 0;
+let isDragging = false;
 
 let dispensing = false;
 
+let offsetX = 0;
 
-/* =====================================
+let offsetY = 0;
+
+
+
+/* ==================================================
    RESET COIN
-===================================== */
+================================================== */
 
 function resetCoin() {
 
-  coin.style.display =
-    "block";
+  coin.style.display = "block";
 
-  coin.style.left =
-    "45px";
+  coin.style.position = "fixed";
 
-  coin.style.top =
-    "auto";
+  coin.style.left = "45px";
 
-  coin.style.bottom =
-    "45px";
+  coin.style.top = "auto";
+
+  coin.style.right = "auto";
+
+  coin.style.bottom = "45px";
+
+  coin.style.opacity = "1";
+
+  coin.style.transform = "scale(1)";
+
+  coin.style.transition = "";
+
+  coin.style.cursor = "grab";
+
+  isDragging = false;
+
 }
 
 
-/* =====================================
+
+/* ==================================================
    START DRAG
-===================================== */
+================================================== */
 
 coin.addEventListener(
   "pointerdown",
@@ -814,133 +887,340 @@ coin.addEventListener(
       return;
     }
 
-    dragging = true;
+
+    e.preventDefault();
 
 
     const rect =
       coin.getBoundingClientRect();
 
 
-    dragOffsetX =
-      e.clientX -
-      rect.left;
+    /*
+      IMPORTANT
 
-    dragOffsetY =
-      e.clientY -
-      rect.top;
+      先把 bottom 定位转换成
+      当前真实的 left/top。
 
+      这样开始拖的时候不会跳。
+    */
+
+    coin.style.left =
+      rect.left + "px";
+
+    coin.style.top =
+      rect.top + "px";
 
     coin.style.bottom =
       "auto";
 
+    coin.style.right =
+      "auto";
 
-    coin.setPointerCapture(
-      e.pointerId
-    );
+
+    offsetX =
+      e.clientX -
+      rect.left;
+
+    offsetY =
+      e.clientY -
+      rect.top;
+
+
+    isDragging = true;
+
+
+    coin.style.cursor =
+      "grabbing";
 
   }
 );
 
 
-/* =====================================
-   DRAG
-===================================== */
 
-coin.addEventListener(
+/* ==================================================
+   DRAG
+
+   注意：
+   这里监听 document，
+   不是监听 coin。
+
+   所以鼠标移动出 coin 本身以后
+   仍然可以继续拖。
+================================================== */
+
+document.addEventListener(
   "pointermove",
   function(e) {
 
-    if (!dragging) {
+    if (!isDragging) {
       return;
     }
+
+
+    e.preventDefault();
+
+
+    const newX =
+      e.clientX -
+      offsetX;
+
+
+    const newY =
+      e.clientY -
+      offsetY;
 
 
     coin.style.left =
-      (
-        e.clientX -
-        dragOffsetX
-      ) + "px";
+      newX + "px";
 
 
     coin.style.top =
-      (
-        e.clientY -
-        dragOffsetY
-      ) + "px";
+      newY + "px";
 
+  },
+  {
+    passive: false
   }
 );
 
 
-/* =====================================
+
+/* ==================================================
    RELEASE
-===================================== */
+================================================== */
 
-coin.addEventListener(
+document.addEventListener(
   "pointerup",
-  function(e) {
+  function() {
 
-    if (!dragging) {
+    if (!isDragging) {
       return;
     }
 
 
-    dragging = false;
+    isDragging = false;
 
 
-    const coinRect =
-      coin.getBoundingClientRect();
+    coin.style.cursor =
+      "grab";
 
 
-    const slotRect =
-      coinSlot.getBoundingClientRect();
-
-
-    const x =
-      coinRect.left +
-      coinRect.width / 2;
-
-
-    const y =
-      coinRect.top +
-      coinRect.height / 2;
-
-
-    const isInside =
-      x >= slotRect.left &&
-      x <= slotRect.right &&
-      y >= slotRect.top &&
-      y <= slotRect.bottom;
-
-
-    if (isInside) {
-
-      acceptCoin();
-
-    }
-
-    else {
-
-      resetCoin();
-
-    }
+    checkCoinDrop();
 
   }
 );
 
 
-/* =====================================
+
+/* ==================================================
+   POINTER CANCEL
+================================================== */
+
+document.addEventListener(
+  "pointercancel",
+  function() {
+
+    if (!isDragging) {
+      return;
+    }
+
+
+    isDragging = false;
+
+
+    resetCoin();
+
+  }
+);
+
+
+
+/* ==================================================
+   CHECK COIN DROP
+================================================== */
+
+function checkCoinDrop() {
+
+  const coinRect =
+    coin.getBoundingClientRect();
+
+
+  const slotRect =
+    coinSlot.getBoundingClientRect();
+
+
+
+  /*
+    找 coin 和 slot 的重叠区域
+  */
+
+  const overlapLeft =
+    Math.max(
+      coinRect.left,
+      slotRect.left
+    );
+
+
+  const overlapRight =
+    Math.min(
+      coinRect.right,
+      slotRect.right
+    );
+
+
+  const overlapTop =
+    Math.max(
+      coinRect.top,
+      slotRect.top
+    );
+
+
+  const overlapBottom =
+    Math.min(
+      coinRect.bottom,
+      slotRect.bottom
+    );
+
+
+
+  const overlapWidth =
+    Math.max(
+      0,
+      overlapRight -
+      overlapLeft
+    );
+
+
+  const overlapHeight =
+    Math.max(
+      0,
+      overlapBottom -
+      overlapTop
+    );
+
+
+  const overlapArea =
+    overlapWidth *
+    overlapHeight;
+
+
+  const coinArea =
+    coinRect.width *
+    coinRect.height;
+
+
+
+  /*
+    只需要 15% 的 coin
+    进入红框。
+
+    所以很好投，
+    不需要非常精确。
+  */
+
+  const successfulDrop =
+    overlapArea >
+    coinArea * 0.15;
+
+
+
+  if (successfulDrop) {
+
+    acceptCoin();
+
+  }
+
+  else {
+
+    resetCoin();
+
+
+    instruction.textContent =
+      "TRY AGAIN — DROP THE COIN IN THE RED AREA";
+
+
+    setTimeout(
+      function() {
+
+        if (!hasCoin) {
+
+          instruction.textContent =
+            "DRAG THE COIN INTO THE RED AREA";
+
+        }
+
+      },
+      1200
+    );
+
+  }
+
+}
+
+
+
+/* ==================================================
    ACCEPT COIN
-===================================== */
+================================================== */
 
 function acceptCoin() {
 
   hasCoin = true;
 
 
-  coin.style.display =
-    "none";
+  const slotRect =
+    coinSlot.getBoundingClientRect();
 
+
+  const coinRect =
+    coin.getBoundingClientRect();
+
+
+
+  /*
+    硬币吸到投币区中央
+  */
+
+  const targetX =
+    slotRect.left +
+    slotRect.width / 2 -
+    coinRect.width / 2;
+
+
+  const targetY =
+    slotRect.top +
+    slotRect.height / 2 -
+    coinRect.height / 2;
+
+
+
+  coin.style.transition =
+    "left .22s ease, " +
+    "top .22s ease, " +
+    "transform .22s ease, " +
+    "opacity .22s ease";
+
+
+  coin.style.left =
+    targetX + "px";
+
+
+  coin.style.top =
+    targetY + "px";
+
+
+  coin.style.transform =
+    "scale(.2)";
+
+
+  coin.style.opacity =
+    "0";
+
+
+
+  /*
+    状态改变
+  */
 
   status.textContent =
     "$1.00";
@@ -950,23 +1230,39 @@ function acceptCoin() {
     "COIN ACCEPTED → SELECT AN ITEM";
 
 
-  /*
-    投币成功以后
-    红框变绿色
-  */
-
   coinSlot.style.background =
-    "rgba(0,255,0,.18)";
+    "rgba(0,255,0,.20)";
+
 
   coinSlot.style.border =
     "2px solid limegreen";
 
+
+
+  /*
+    吸进去以后隐藏 coin
+  */
+
+  setTimeout(
+    function() {
+
+      coin.style.display =
+        "none";
+
+      coin.style.transition =
+        "";
+
+    },
+    230
+  );
+
 }
 
 
-/* =====================================
-   PRODUCT CLICK
-===================================== */
+
+/* ==================================================
+   CLICK PRODUCTS
+================================================== */
 
 products.forEach(
   function(product) {
@@ -975,10 +1271,16 @@ products.forEach(
       "click",
       function() {
 
+
         if (dispensing) {
           return;
         }
 
+
+
+        /*
+          没投币
+        */
 
         if (!hasCoin) {
 
@@ -987,7 +1289,7 @@ products.forEach(
 
 
           instruction.textContent =
-            "DRAG THE COIN INTO THE RED AREA";
+            "INSERT COIN FIRST";
 
 
           setTimeout(
@@ -998,17 +1300,25 @@ products.forEach(
                 status.textContent =
                   "$0.00";
 
+
+                instruction.textContent =
+                  "DRAG THE COIN INTO THE RED AREA";
+
               }
 
             },
-            900
+            1000
           );
 
 
           return;
-
         }
 
+
+
+        /*
+          已投币
+        */
 
         dispense(product);
 
@@ -1019,15 +1329,25 @@ products.forEach(
 );
 
 
-/* =====================================
-   DISPENSE
-===================================== */
+
+/* ==================================================
+   DISPENSE PRODUCT
+================================================== */
 
 function dispense(product) {
+
+  if (
+    !hasCoin ||
+    dispensing
+  ) {
+    return;
+  }
+
 
   dispensing = true;
 
   hasCoin = false;
+
 
 
   const productRect =
@@ -1037,6 +1357,11 @@ function dispense(product) {
   const machineRect =
     machine.getBoundingClientRect();
 
+
+
+  /*
+    创建商品副本
+  */
 
   const falling =
     document.createElement(
@@ -1075,7 +1400,17 @@ function dispense(product) {
 
 
   falling.style.transform =
-    "rotate(0deg)";
+    "rotate(0deg) scale(1)";
+
+
+  falling.style.opacity =
+    "1";
+
+
+  falling.style.transition =
+    "left .85s cubic-bezier(.3,.05,.7,1), " +
+    "top .85s cubic-bezier(.3,.05,.7,1), " +
+    "transform .85s ease";
 
 
   document.body.appendChild(
@@ -1083,27 +1418,48 @@ function dispense(product) {
   );
 
 
+
+  /*
+    原来的商品隐藏。
+
+    这样看起来就是商品
+    真正从货架掉下来。
+  */
+
+  product.style.visibility =
+    "hidden";
+
+
+
   /*
     PICK UP HERE
+
+    这里决定最终掉到哪里。
   */
 
   const pickupX =
     machineRect.left +
     machineRect.width *
-    0.37;
+    0.36;
 
 
   const pickupY =
     machineRect.top +
     machineRect.height *
-    0.80;
+    0.82;
 
+
+
+  /*
+    开始掉落
+  */
 
   requestAnimationFrame(
     function() {
 
       requestAnimationFrame(
         function() {
+
 
           falling.style.left =
             (
@@ -1120,13 +1476,14 @@ function dispense(product) {
 
 
           falling.style.transform =
-            "rotate(10deg)";
+            "rotate(12deg) scale(.95)";
 
         }
       );
 
     }
   );
+
 
 
   status.textContent =
@@ -1137,8 +1494,14 @@ function dispense(product) {
     "DISPENSING...";
 
 
+
+  /*
+    到达取货口
+  */
+
   setTimeout(
     function() {
+
 
       thankyou.classList.add(
         "show"
@@ -1148,36 +1511,78 @@ function dispense(product) {
       instruction.textContent =
         "PICK UP YOUR DESIGN";
 
+
     },
-    700
+    850
   );
 
+
+
+  /*
+    在取货口停留
+  */
 
   setTimeout(
     function() {
 
+
       falling.style.transition =
-        "opacity .4s ease";
+        "opacity .35s ease";
 
 
       falling.style.opacity =
         "0";
+
 
     },
     2500
   );
 
 
+
+  /*
+    RESET
+  */
+
   setTimeout(
     function() {
 
+
       falling.remove();
 
+
+      /*
+        商品重新放回货架
+      */
+
+      product.style.visibility =
+        "visible";
+
+
+      /*
+        THANK YOU 消失
+      */
 
       thankyou.classList.remove(
         "show"
       );
 
+
+      /*
+        投币框恢复红色
+      */
+
+      coinSlot.style.background =
+        "rgba(255,0,0,.20)";
+
+
+      coinSlot.style.border =
+        "2px solid red";
+
+
+      /*
+        硬币回来
+      */
 
       resetCoin();
 
@@ -1190,26 +1595,27 @@ function dispense(product) {
         "DRAG THE COIN INTO THE RED AREA";
 
 
-      /*
-        恢复红色投币区
-      */
+      dispensing =
+        false;
 
-      coinSlot.style.background =
-        "rgba(255,0,0,.20)";
-
-      coinSlot.style.border =
-        "2px solid red";
-
-
-      dispensing = false;
 
     },
-    3000
+    2900
   );
 
 }
 
+
+
+/* ==================================================
+   INITIALIZE
+================================================== */
+
+resetCoin();
+
 </script>
 
+
 </body>
+
 </html>
