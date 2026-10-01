@@ -1,1 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Design Vending Machine</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #efefef;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* 整个页面 */
+.stage {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 左上角提示 */
+.instruction {
+  position: absolute;
+  top: 28px;
+  left: 28px;
+  z-index: 100;
+  font-size: 14px;
+  letter-spacing: 1.2px;
+  color: #111;
+}
+
+/* 自动售货机 */
+.machine-wrap {
+  position: absolute;
+  height: 100vh;
+  width: auto;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+.machine {
+  height: 100vh;
+  width: auto;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* 商品 */
+.product {
+  position: absolute;
+  z-index: 20;
+
+  width: 8.5%;
+  height: 10%;
+
+  object-fit: contain;
+
+  cursor: pointer;
+
+  transform: translate(-50%, -50%);
+  transition:
+    transform 0.18s ease,
+    filter 0.18s ease,
+    opacity 0.2s ease;
+
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.product:hover {
+  transform: translate(-50%, -50%) scale(1.12);
+  filter: brightness(1.08);
+}
+
+/* 商品编号 */
+.code {
+  position: absolute;
+  z-index: 25;
+
+  transform: translate(-50%, -50%);
+
+  background: white;
+  color: black;
+
+  padding: 3px 6px;
+
+  font-size: 11px;
+  font-weight: bold;
+
+  border-radius: 2px;
+
+  pointer-events: none;
+}
+
+/* 硬币 */
+#coin {
+  position: absolute;
+
+  width: 58px;
+  height: 58px;
+
+  object-fit: contain;
+
+  left: calc(50% + 390px);
+  top: 72%;
+
+  z-index: 100;
+
+  cursor: grab;
+
+  user-select: none;
+  -webkit-user-drag: none;
+
+  filter: drop-shadow(0 4px 4px rgba(0,0,0,.25));
+}
+
+#coin:active {
+  cursor: grabbing;
+}
+
+/* 投币口热区 */
+#coinSlot {
+  position: absolute;
+
+  left: calc(50% + 330px);
+  top: 32%;
+
+  width: 95px;
+  height: 150px;
+
+  z-index: 50;
+}
+
+/* INSERT COIN 提示 */
+.coin-label {
+  position: absolute;
+
+  left: calc(50% + 378px);
+  top: 43%;
+
+  transform: translateX(-50%);
+
+  background: #111;
+  color: white;
+
+  padding: 7px 10px;
+
+  font-family: monospace;
+  font-size: 15px;
+
+  z-index: 60;
+
+  pointer-events: none;
+}
+
+/* 屏幕状态 */
+.status {
+  position: absolute;
+
+  left: calc(50% + 378px);
+  top: 25.5%;
+
+  transform: translateX(-50%);
+
+  color: #e53636;
+
+  font-family: monospace;
+  font-size: 14px;
+
+  z-index: 60;
+
+  pointer-events: none;
+}
+
+/* 掉落商品 */
+.dropping {
+  pointer-events: none !important;
+  z-index: 80 !important;
+
+  transition:
+    top 1.15s cubic-bezier(.25,.75,.35,1),
+    transform 1.15s cubic-bezier(.25,.75,.35,1) !important;
+}
+
+/* 到达取货口 */
+.arrived {
+  animation: bounce .45s ease;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  45% {
+    transform: translate(-50%, -50%) scale(1.18);
+  }
+
+  70% {
+    transform: translate(-50%, -50%) scale(.94);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* 未投币时点击商品的提示 */
+.shake {
+  animation: shake .3s ease;
+}
+
+@keyframes shake {
+  0%,100% { transform: translate(-50%, -50%); }
+  25% { transform: translate(calc(-50% - 5px), -50%); }
+  75% { transform: translate(calc(-50% + 5px), -50%); }
+}
+
+/* 手机 */
+@media (max-width: 800px) {
+
+  .machine-wrap {
+    height: 100vh;
+  }
+
+  .instruction {
+    font-size: 11px;
+    left: 12px;
+    top: 15px;
+  }
+
+  #coin {
+    width: 45px;
+    height: 45px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="stage">
+
+  <div class="instruction" id="instruction">
+    DRAG THE COIN → INSERT COIN
+  </div>
+
+  <div class="machine-wrap" id="machineWrap">
+
+    <!-- 自动售货机 -->
+    <img
+      src="vending-machine.png"
+      class="machine"
+      id="machine"
+      alt="Vending Machine"
+    >
+
+    <!-- 第一排 -->
+
+    <img
+      src="groundcycle.png"
+      class="product"
+      data-code="A1"
+      style="left:20%; top:25%;"
+    >
+
+    <div class="code" style="left:20%; top:31%;">
+      A1
+    </div>
+
+
+    <img
+      src="social-cloud.png"
+      class="product"
+      data-code="A2"
+      style="left:40%; top:25%;"
+    >
+
+    <div class="code" style="left:40%; top:31%;">
+      A2
+    </div>
+
+
+    <img
+      src="dad-healer.png"
+      class="product"
+      data-code="A3"
+      style="left:60%; top:25%;"
+    >
+
+    <div class="code" style="left:60%; top:31%;">
+      A3
+    </div>
+
+
+    <!-- 第二排 -->
+
+    <img
+      src="before-i-speak.png"
+      class="product"
+      data-code="B1"
+      style="left:20%; top:43%;"
+    >
+
+    <div class="code" style="left:20%; top:49%;">
+      B1
+    </div>
+
+
+    <img
+      src="perfume.png"
+      class="product"
+      data-code="B2"
+      style="left:40%; top:43%;"
+    >
+
+    <div class="code" style="left:40%; top:49%;">
+      B2
+    </div>
+
+
+    <img
+      src="body-fonts.png"
+      class="product"
+      data-code="B3"
+      style="left:60%; top:43%;"
+    >
+
+    <div class="code" style="left:60%; top:49%;">
+      B3
+    </div>
+
+
+    <!-- 第三排 -->
+
+    <img
+      src="city-walk.png"
+      class="product"
+      data-code="C1"
+      style="left:20%; top:61%;"
+    >
+
+    <div class="code" style="left:20%; top:67%;">
+      C1
+    </div>
+
+
+    <img
+      src="quiet-town.png"
+      class="product"
+      data-code="C2"
+      style="left:40%; top:61%;"
+    >
+
+    <div class="code" style="left:40%; top:67%;">
+      C2
+    </div>
+
+
+    <img
+      src="hypertext.png"
+      class="product"
+      data-code="C3"
+      style="left:60%; top:61%;"
+    >
+
+    <div class="code" style="left:60%; top:67%;">
+      C3
+    </div>
+
+
+    <!-- 第四排 -->
+
+    <img
+      src="in-between.png"
+      class="product"
+      data-code="D1"
+      style="left:30%; top:76%;"
+    >
+
+    <div class="code" style="left:30%; top:82%;">
+      D1
+    </div>
+
+  </div>
+
+
+  <!-- 投币口 -->
+  <div id="coinSlot"></div>
+
+  <div class="coin-label" id="coinLabel">
+    INSERT COIN
+  </div>
+
+  <div class="status" id="status">
+    $0.00
+  </div>
+
+
+  <!-- 可以拖动的硬币 -->
+  <img
+    src="coin.png"
+    id="coin"
+    alt="coin"
+    draggable="false"
+  >
+
+</div>
+
+
+<script>
+
+const coin = document.getElementById("coin");
+const coinSlot = document.getElementById("coinSlot");
+const instruction = document.getElementById("instruction");
+const status = document.getElementById("status");
+const coinLabel = document.getElementById("coinLabel");
+
+const products = document.querySelectorAll(".product");
+
+let paid = false;
+
+let dragging = false;
+let offsetX = 0;
+let offsetY = 0;
+
+
+/* =========================
+   DRAG COIN
+========================= */
+
+coin.addEventListener("pointerdown", function(e) {
+
+  if (paid) return;
+
+  dragging = true;
+
+  coin.setPointerCapture(e.pointerId);
+
+  const rect = coin.getBoundingClientRect();
+
+  offsetX = e.clientX - rect.left;
+  offsetY = e.clientY - rect.top;
+
+});
+
+
+coin.addEventListener("pointermove", function(e) {
+
+  if (!dragging) return;
+
+  coin.style.left =
+    (e.clientX - offsetX) + "px";
+
+  coin.style.top =
+    (e.clientY - offsetY) + "px";
+
+});
+
+
+coin.addEventListener("pointerup", function(e) {
+
+  if (!dragging) return;
+
+  dragging = false;
+
+  const coinRect =
+    coin.getBoundingClientRect();
+
+  const slotRect =
+    coinSlot.getBoundingClientRect();
+
+
+  const coinCenterX =
+    coinRect.left + coinRect.width / 2;
+
+  const coinCenterY =
+    coinRect.top + coinRect.height / 2;
+
+
+  const inside =
+    coinCenterX > slotRect.left &&
+    coinCenterX < slotRect.right &&
+    coinCenterY > slotRect.top &&
+    coinCenterY < slotRect.bottom;
+
+
+  if (inside) {
+
+    insertCoin();
+
+  } else {
+
+    resetCoin();
+
+  }
+
+});
+
+
+/* =========================
+   INSERT COIN
+========================= */
+
+function insertCoin() {
+
+  paid = true;
+
+  coin.style.transition =
+    "all .28s ease";
+
+  const slotRect =
+    coinSlot.getBoundingClientRect();
+
+  coin.style.left =
+    (slotRect.left + slotRect.width / 2 - 29) + "px";
+
+  coin.style.top =
+    (slotRect.top + slotRect.height / 2 - 29) + "px";
+
+  coin.style.transform =
+    "scale(.15) rotate(90deg)";
+
+  coin.style.opacity = "0";
+
+
+  setTimeout(() => {
+
+    coin.style.display = "none";
+
+  }, 280);
+
+
+  status.textContent = "$1.00";
+
+  coinLabel.textContent =
+    "SELECT ITEM";
+
+  instruction.textContent =
+    "COIN ACCEPTED → SELECT SOMETHING";
+
+}
+
+
+/* =========================
+   RESET COIN
+========================= */
+
+function resetCoin() {
+
+  coin.style.transition =
+    "all .35s ease";
+
+  coin.style.left =
+    "calc(50% + 390px)";
+
+  coin.style.top =
+    "72%";
+
+  setTimeout(() => {
+
+    coin.style.transition = "";
+
+  }, 350);
+
+}
+
+
+/* =========================
+   PRODUCTS
+========================= */
+
+products.forEach(product => {
+
+  product.addEventListener(
+    "click",
+    function() {
+
+      if (!paid) {
+
+        instruction.textContent =
+          "INSERT COIN FIRST";
+
+        coinLabel.classList.remove("shake");
+
+        void coinLabel.offsetWidth;
+
+        coinLabel.classList.add("shake");
+
+        return;
+      }
+
+
+      dropProduct(product);
+
+    }
+  );
+
+});
+
+
+/* =========================
+   DROP PRODUCT
+========================= */
+
+function dropProduct(original) {
+
+  if (!paid) return;
+
+
+  paid = false;
+
+
+  const rect =
+    original.getBoundingClientRect();
+
+
+  /*
+    创建一个复制品。
+    原来的商品还留在机器里面，
+    新的这个负责掉下来。
+  */
+
+  const clone =
+    original.cloneNode(true);
+
+
+  clone.classList.add("dropping");
+
+  clone.style.position =
+    "fixed";
+
+  clone.style.left =
+    (rect.left + rect.width / 2) + "px";
+
+  clone.style.top =
+    (rect.top + rect.height / 2) + "px";
+
+  clone.style.width =
+    rect.width + "px";
+
+  clone.style.height =
+    rect.height + "px";
+
+  clone.style.margin = "0";
+
+  clone.style.transform =
+    "translate(-50%, -50%)";
+
+  document.body.appendChild(clone);
+
+
+  instruction.textContent =
+    "DISPENSING " +
+    original.dataset.code +
+    "...";
+
+  coinLabel.textContent =
+    "VENDING";
+
+  status.textContent =
+    "$0.00";
+
+
+  /*
+    下一帧开始掉落
+  */
+
+  requestAnimationFrame(() => {
+
+    requestAnimationFrame(() => {
+
+      clone.style.top =
+        "91vh";
+
+      clone.style.transform =
+        "translate(-50%, -50%) rotate(8deg)";
+
+    });
+
+  });
+
+
+  /*
+    到达底部
+  */
+
+  setTimeout(() => {
+
+    clone.classList.remove("dropping");
+
+    clone.classList.add("arrived");
+
+    clone.style.cursor =
+      "pointer";
+
+    clone.style.pointerEvents =
+      "auto";
+
+
+    instruction.textContent =
+      "TAKE YOUR DESIGN";
+
+
+    coinLabel.textContent =
+      "THANK YOU";
+
+
+    /*
+      点击掉出来的商品，
+      它会消失，然后可以重新投币。
+    */
+
+    clone.addEventListener(
+      "click",
+      function() {
+
+        clone.style.transition =
+          "all .3s ease";
+
+        clone.style.opacity = "0";
+
+        clone.style.transform =
+          "translate(-50%, -50%) scale(.7)";
+
+
+        setTimeout(() => {
+
+          clone.remove();
+
+          resetMachine();
+
+        }, 300);
+
+      }
+    );
+
+  }, 1200);
+
+}
+
+
+/* =========================
+   RESET MACHINE
+========================= */
+
+function resetMachine() {
+
+  paid = false;
+
+  coin.style.display = "block";
+
+  coin.style.opacity = "1";
+
+  coin.style.transform = "none";
+
+  coin.style.transition = "none";
+
+  coin.style.left =
+    "calc(50% + 390px)";
+
+  coin.style.top =
+    "72%";
+
+
+  status.textContent =
+    "$0.00";
+
+  coinLabel.textContent =
+    "INSERT COIN";
+
+  instruction.textContent =
+    "DRAG THE COIN → INSERT COIN";
+
+}
+
+</script>
+
+</body>
+</html>
