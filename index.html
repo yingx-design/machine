@@ -2,12 +2,22 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <title>Take Your Design</title>
 
+
 <style>
+
+/* ==================================================
+   BASIC
+================================================== */
 
 * {
   box-sizing: border-box;
@@ -16,10 +26,16 @@
 html,
 body {
   margin: 0;
+
   width: 100%;
   min-height: 100%;
+
   background: #efefef;
-  font-family: Arial, Helvetica, sans-serif;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 }
 
 body {
@@ -28,14 +44,15 @@ body {
 
 .page {
   position: relative;
+
   width: 100%;
   min-height: 100vh;
 }
 
 
-/* ==============================
+/* ==================================================
    INSTRUCTION
-============================== */
+================================================== */
 
 .instruction {
   position: fixed;
@@ -46,6 +63,7 @@ body {
   z-index: 100;
 
   font-size: 15px;
+
   letter-spacing: 1.5px;
 
   color: #111;
@@ -54,9 +72,9 @@ body {
 }
 
 
-/* ==============================
+/* ==================================================
    MACHINE
-============================== */
+================================================== */
 
 .machine {
   position: relative;
@@ -73,13 +91,14 @@ body {
   height: auto;
 
   pointer-events: none;
+
   user-select: none;
 }
 
 
-/* ==============================
+/* ==================================================
    PRODUCTS
-============================== */
+================================================== */
 
 .product {
   position: absolute;
@@ -88,7 +107,9 @@ body {
 
   object-fit: contain;
 
-  transform: translate(-50%, -50%);
+  transform:
+    translate(-50%, -50%);
+
   transform-origin: center;
 
   cursor: pointer;
@@ -105,6 +126,7 @@ body {
     opacity .25s ease;
 }
 
+
 .product:hover {
   transform:
     translate(-50%, -50%)
@@ -118,139 +140,165 @@ body {
 }
 
 
-/* ==============================
+/* ==================================================
    PRODUCT SIZE
-============================== */
+   商品整体放大
+================================================== */
 
 #a1 {
-  width: 54px;
-  height: 70px;
-}
-
-#a2 {
-  width: 82px;
-  height: 82px;
-}
-
-#a3 {
-  width: 82px;
-  height: 82px;
-}
-
-#b1 {
-  width: 82px;
-  height: 86px;
-}
-
-#b2 {
   width: 64px;
-  height: 86px;
-}
-
-#b3 {
-  width: 82px;
   height: 82px;
-}
-
-#c1 {
-  width: 82px;
-  height: 82px;
-}
-
-#c2 {
-  width: 82px;
-  height: 86px;
-}
-
-#c3 {
-  width: 78px;
-  height: 82px;
-}
-
-#d1 {
-  width: 70px;
-  height: 78px;
-}
-
-
-/* ==============================
-   PRODUCT POSITION
-============================== */
-
-/* ROW A */
-
-#a1 {
-  left: 17%;
-  top: 24%;
 }
 
 #a2 {
-  left: 37%;
-  top: 24%;
+  width: 94px;
+  height: 94px;
 }
 
 #a3 {
-  left: 57%;
-  top: 24%;
+  width: 94px;
+  height: 94px;
 }
 
 
-/* ROW B */
-
 #b1 {
-  left: 17%;
-  top: 41.5%;
+  width: 94px;
+  height: 100px;
 }
 
 #b2 {
-  left: 37%;
-  top: 41.5%;
+  width: 74px;
+  height: 98px;
 }
 
 #b3 {
-  left: 57%;
-  top: 41.5%;
+  width: 94px;
+  height: 94px;
 }
 
 
-/* ROW C */
-
 #c1 {
-  left: 17%;
-  top: 59%;
+  width: 94px;
+  height: 94px;
 }
 
 #c2 {
-  left: 37%;
-  top: 59%;
+  width: 94px;
+  height: 98px;
 }
 
 #c3 {
-  left: 57%;
-  top: 59%;
+  width: 90px;
+  height: 94px;
 }
 
-
-/* ROW D */
 
 #d1 {
-  left: 17%;
-  top: 74%;
+  width: 82px;
+  height: 90px;
 }
 
 
-/* ==============================
+/* ==================================================
+   PRODUCT POSITION
+
+   之前：
+   17 / 37 / 57
+
+   现在整体向右：
+   21 / 41 / 61
+
+   同时整体向上
+================================================== */
+
+
+/* =========================
+   ROW A
+========================= */
+
+#a1 {
+  left: 21%;
+  top: 21.5%;
+}
+
+#a2 {
+  left: 41%;
+  top: 21.5%;
+}
+
+#a3 {
+  left: 61%;
+  top: 21.5%;
+}
+
+
+/* =========================
+   ROW B
+========================= */
+
+#b1 {
+  left: 21%;
+  top: 39%;
+}
+
+#b2 {
+  left: 41%;
+  top: 39%;
+}
+
+#b3 {
+  left: 61%;
+  top: 39%;
+}
+
+
+/* =========================
+   ROW C
+========================= */
+
+#c1 {
+  left: 21%;
+  top: 56.5%;
+}
+
+#c2 {
+  left: 41%;
+  top: 56.5%;
+}
+
+#c3 {
+  left: 61%;
+  top: 56.5%;
+}
+
+
+/* =========================
+   ROW D
+
+   D1 单独往上移动
+   回到第四排货架
+========================= */
+
+#d1 {
+  left: 21%;
+  top: 68%;
+}
+
+
+/* ==================================================
    LABELS
-============================== */
+================================================== */
 
 .label {
   position: absolute;
 
   z-index: 20;
 
-  transform: translate(-50%, -50%);
+  transform:
+    translate(-50%, -50%);
 
   background: white;
+
   color: black;
 
   padding: 3px 6px;
@@ -258,79 +306,88 @@ body {
   border-radius: 2px;
 
   font-size: 11px;
+
   font-weight: bold;
 
   pointer-events: none;
 }
 
 
-/* ROW A */
+/* =========================
+   ROW A LABELS
+========================= */
 
 #a1-label {
-  left: 17%;
-  top: 30.5%;
+  left: 21%;
+  top: 28.3%;
 }
 
 #a2-label {
-  left: 37%;
-  top: 30.5%;
+  left: 41%;
+  top: 28.3%;
 }
 
 #a3-label {
-  left: 57%;
-  top: 30.5%;
+  left: 61%;
+  top: 28.3%;
 }
 
 
-/* ROW B */
+/* =========================
+   ROW B LABELS
+========================= */
 
 #b1-label {
-  left: 17%;
-  top: 48%;
+  left: 21%;
+  top: 45.8%;
 }
 
 #b2-label {
-  left: 37%;
-  top: 48%;
+  left: 41%;
+  top: 45.8%;
 }
 
 #b3-label {
-  left: 57%;
-  top: 48%;
+  left: 61%;
+  top: 45.8%;
 }
 
 
-/* ROW C */
+/* =========================
+   ROW C LABELS
+========================= */
 
 #c1-label {
-  left: 17%;
-  top: 65.5%;
+  left: 21%;
+  top: 63.3%;
 }
 
 #c2-label {
-  left: 37%;
-  top: 65.5%;
+  left: 41%;
+  top: 63.3%;
 }
 
 #c3-label {
-  left: 57%;
-  top: 65.5%;
+  left: 61%;
+  top: 63.3%;
 }
 
 
-/* ROW D */
+/* =========================
+   ROW D LABEL
+========================= */
 
 #d1-label {
-  left: 17%;
-  top: 80%;
+  left: 21%;
+  top: 73%;
 }
 
 
-/* ==============================
-   COIN SLOT
+/* ==================================================
+   INVISIBLE COIN SLOT
 
-   这里换成你上传代码里的位置
-============================== */
+   不显示红框
+================================================== */
 
 .coin-slot {
   position: absolute;
@@ -341,30 +398,15 @@ body {
   width: 10%;
   height: 11%;
 
-  z-index: 30;
-
-  /*
-    现在先显示红框，
-    确认投币完全正常以后再隐藏
-  */
-
-  background:
-    rgba(255,0,0,.20);
-
-  border:
-    2px solid red;
-
-  border-radius: 5px;
-
-  pointer-events: none;
+  z-index: 9;
 }
 
 
-/* ==============================
+/* ==================================================
    COIN
 
-   这里完全使用你原来正常的尺寸和位置
-============================== */
+   保持你现在正确的位置
+================================================== */
 
 .coin {
   position: fixed;
@@ -379,9 +421,10 @@ body {
 
   cursor: grab;
 
-  z-index: 1000;
+  z-index: 100;
 
   user-select: none;
+
   -webkit-user-select: none;
 
   filter:
@@ -394,25 +437,31 @@ body {
     transform .15s ease;
 }
 
+
 .coin:hover {
-  transform: scale(1.08);
+  transform:
+    scale(1.08);
 }
+
 
 .coin.dragging {
   cursor: grabbing;
 
-  transform: scale(1.13);
+  transform:
+    scale(1.13);
 }
 
 
-/* ==============================
+/* ==================================================
    STATUS
-============================== */
+================================================== */
 
 .status {
   position: fixed;
 
-  left: calc(50% + 360px);
+  left:
+    calc(50% + 360px);
+
   top: 245px;
 
   z-index: 100;
@@ -425,24 +474,28 @@ body {
 }
 
 
-/* ==============================
+/* ==================================================
    THANK YOU
-============================== */
+================================================== */
 
 .thankyou {
   position: fixed;
 
-  left: calc(50% + 330px);
+  left:
+    calc(50% + 330px);
+
   top: 405px;
 
   z-index: 100;
 
   background: #111;
+
   color: white;
 
   padding: 9px 16px;
 
   font-size: 14px;
+
   font-weight: bold;
 
   opacity: 0;
@@ -453,14 +506,15 @@ body {
     opacity .2s ease;
 }
 
+
 .thankyou.show {
   opacity: 1;
 }
 
 
-/* ==============================
+/* ==================================================
    FALLING PRODUCT
-============================== */
+================================================== */
 
 .dispensing {
   position: fixed;
@@ -475,17 +529,19 @@ body {
 }
 
 
-/* ==============================
+/* ==================================================
    MOBILE
-============================== */
+================================================== */
 
 @media (max-width: 850px) {
 
   .machine {
-    width: min(560px, 92vw);
+    width:
+      min(560px, 92vw);
 
     margin-top: 70px;
   }
+
 
   .instruction {
     left: 15px;
@@ -493,6 +549,7 @@ body {
 
     font-size: 12px;
   }
+
 
   .coin {
     width: 55px;
@@ -509,10 +566,16 @@ body {
 </head>
 
 
+
 <body>
+
 
 <div class="page">
 
+
+  <!-- ==================================================
+       INSTRUCTION
+  =================================================== -->
 
   <div
     class="instruction"
@@ -523,13 +586,17 @@ body {
 
 
 
+  <!-- ==================================================
+       MACHINE
+  =================================================== -->
+
   <div
     class="machine"
     id="machine"
   >
 
 
-    <!-- MACHINE -->
+    <!-- MACHINE IMAGE -->
 
     <img
       src="vending-machine.png"
@@ -539,7 +606,8 @@ body {
     >
 
 
-    <!-- COIN TARGET -->
+
+    <!-- INVISIBLE COIN TARGET -->
 
     <div
       class="coin-slot"
@@ -548,10 +616,12 @@ body {
 
 
 
-    <!-- =====================
+    <!-- ==================================================
          ROW A
-    ====================== -->
+    =================================================== -->
 
+
+    <!-- A1 -->
 
     <img
       src="groundcycle.png"
@@ -570,6 +640,8 @@ body {
 
 
 
+    <!-- A2 -->
+
     <img
       src="social-cloud.png"
       class="product"
@@ -586,6 +658,8 @@ body {
     </div>
 
 
+
+    <!-- A3 -->
 
     <img
       src="dad-healer.png"
@@ -604,10 +678,12 @@ body {
 
 
 
-    <!-- =====================
+    <!-- ==================================================
          ROW B
-    ====================== -->
+    =================================================== -->
 
+
+    <!-- B1 -->
 
     <img
       src="before-i-speak.png"
@@ -626,6 +702,8 @@ body {
 
 
 
+    <!-- B2 -->
+
     <img
       src="perfume.png"
       class="product"
@@ -642,6 +720,8 @@ body {
     </div>
 
 
+
+    <!-- B3 -->
 
     <img
       src="body-fonts.png"
@@ -660,10 +740,12 @@ body {
 
 
 
-    <!-- =====================
+    <!-- ==================================================
          ROW C
-    ====================== -->
+    =================================================== -->
 
+
+    <!-- C1 -->
 
     <img
       src="city-walk.png"
@@ -682,6 +764,8 @@ body {
 
 
 
+    <!-- C2 -->
+
     <img
       src="quiet-town.png"
       class="product"
@@ -698,6 +782,8 @@ body {
     </div>
 
 
+
+    <!-- C3 -->
 
     <img
       src="hypertext.png"
@@ -716,10 +802,12 @@ body {
 
 
 
-    <!-- =====================
+    <!-- ==================================================
          ROW D
-    ====================== -->
+    =================================================== -->
 
+
+    <!-- D1 -->
 
     <img
       src="in-between.png"
@@ -741,7 +829,9 @@ body {
 
 
 
-  <!-- COIN -->
+  <!-- ==================================================
+       COIN
+  =================================================== -->
 
   <img
     src="coin.png"
@@ -753,7 +843,9 @@ body {
 
 
 
-  <!-- STATUS -->
+  <!-- ==================================================
+       STATUS
+  =================================================== -->
 
   <div
     class="status"
@@ -764,7 +856,9 @@ body {
 
 
 
-  <!-- THANK YOU -->
+  <!-- ==================================================
+       THANK YOU
+  =================================================== -->
 
   <div
     class="thankyou"
@@ -780,35 +874,56 @@ body {
 
 <script>
 
-/* ==============================
+/* ==================================================
    ELEMENTS
-============================== */
+================================================== */
 
 const coin =
-  document.getElementById("coin");
+  document.getElementById(
+    "coin"
+  );
+
 
 const coinSlot =
-  document.getElementById("coinSlot");
+  document.getElementById(
+    "coinSlot"
+  );
+
 
 const machine =
-  document.getElementById("machine");
+  document.getElementById(
+    "machine"
+  );
+
 
 const status =
-  document.getElementById("status");
+  document.getElementById(
+    "status"
+  );
+
 
 const thankyou =
-  document.getElementById("thankyou");
+  document.getElementById(
+    "thankyou"
+  );
+
 
 const instruction =
-  document.getElementById("instruction");
+  document.getElementById(
+    "instruction"
+  );
+
 
 const products =
-  document.querySelectorAll(".product");
+  document.querySelectorAll(
+    ".product"
+  );
 
 
-/* ==============================
+
+/* ==================================================
    STATE
-============================== */
+================================================== */
 
 let dragging = false;
 
@@ -821,15 +936,15 @@ let offsetX = 0;
 let offsetY = 0;
 
 
-/* ==============================
-   COIN DRAG START
 
-   使用你原来正常的 mousedown
-============================== */
+/* ==================================================
+   COIN DRAG START
+================================================== */
 
 coin.addEventListener(
   "mousedown",
   function(e) {
+
 
     if (
       paid ||
@@ -864,11 +979,6 @@ coin.addEventListener(
       rect.top;
 
 
-    /*
-      你原来的处理方式：
-      开始拖动时取消 bottom
-    */
-
     coin.style.bottom =
       "auto";
 
@@ -880,15 +990,15 @@ coin.addEventListener(
 );
 
 
-/* ==============================
-   COIN MOVE
 
-   使用 document mousemove
-============================== */
+/* ==================================================
+   COIN MOVE
+================================================== */
 
 document.addEventListener(
   "mousemove",
   function(e) {
+
 
     if (!dragging) {
       return;
@@ -912,13 +1022,15 @@ document.addEventListener(
 );
 
 
-/* ==============================
+
+/* ==================================================
    COIN RELEASE
-============================== */
+================================================== */
 
 document.addEventListener(
   "mouseup",
   function() {
+
 
     if (!dragging) {
       return;
@@ -939,14 +1051,13 @@ document.addEventListener(
 );
 
 
-/* ==============================
-   CHECK COIN
 
-   使用你原来：
-   coin 中心点进入 slot
-============================== */
+/* ==================================================
+   CHECK COIN
+================================================== */
 
 function checkCoin() {
+
 
   const coinRect =
     coin.getBoundingClientRect();
@@ -954,6 +1065,7 @@ function checkCoin() {
 
   const slotRect =
     coinSlot.getBoundingClientRect();
+
 
 
   const x =
@@ -966,18 +1078,25 @@ function checkCoin() {
     coinRect.height / 2;
 
 
+
   const inside =
 
-    x > slotRect.left &&
+    x >
+    slotRect.left &&
 
-    x < slotRect.right &&
+    x <
+    slotRect.right &&
 
-    y > slotRect.top &&
+    y >
+    slotRect.top &&
 
-    y < slotRect.bottom;
+    y <
+    slotRect.bottom;
+
 
 
   if (inside) {
+
 
     paid = true;
 
@@ -990,21 +1109,6 @@ function checkCoin() {
       "COIN ACCEPTED → SELECT AN ITEM";
 
 
-    /*
-      投币成功变绿
-    */
-
-    coinSlot.style.background =
-      "rgba(0,255,0,.20)";
-
-
-    coinSlot.style.border =
-      "2px solid limegreen";
-
-
-    /*
-      使用你原来的吸入动画
-    */
 
     coin.style.transition =
       "all .30s ease";
@@ -1033,25 +1137,28 @@ function checkCoin() {
     coin.style.opacity =
       "0";
 
+
   }
 
 
   else {
 
+
     resetCoin();
+
 
   }
 
 }
 
 
-/* ==============================
-   RESET COIN
 
-   使用你上传代码原来的位置
-============================== */
+/* ==================================================
+   RESET COIN
+================================================== */
 
 function resetCoin() {
+
 
   coin.style.transition =
     "all .35s ease";
@@ -1079,12 +1186,14 @@ function resetCoin() {
 }
 
 
-/* ==============================
+
+/* ==================================================
    PRODUCT CLICK
-============================== */
+================================================== */
 
 products.forEach(
   function(product) {
+
 
     product.addEventListener(
       "click",
@@ -1096,11 +1205,9 @@ products.forEach(
         }
 
 
-        /*
-          没投币
-        */
 
         if (!paid) {
+
 
           status.textContent =
             "INSERT COIN";
@@ -1113,7 +1220,9 @@ products.forEach(
           setTimeout(
             function() {
 
+
               if (!paid) {
+
 
                 status.textContent =
                   "$0.00";
@@ -1122,7 +1231,9 @@ products.forEach(
                 instruction.textContent =
                   "DRAG THE COIN → SELECT SOMETHING";
 
+
               }
+
 
             },
             1000
@@ -1130,16 +1241,15 @@ products.forEach(
 
 
           return;
+
         }
 
 
-        /*
-          已投币
-        */
 
         dispenseProduct(
           product
         );
+
 
       }
     );
@@ -1148,13 +1258,15 @@ products.forEach(
 );
 
 
-/* ==============================
+
+/* ==================================================
    DISPENSE PRODUCT
+================================================== */
 
-   保留刚才版本的掉落逻辑
-============================== */
+function dispenseProduct(
+  product
+) {
 
-function dispenseProduct(product) {
 
   if (
     !paid ||
@@ -1164,9 +1276,13 @@ function dispenseProduct(product) {
   }
 
 
-  dispensing = true;
+  dispensing =
+    true;
 
-  paid = false;
+
+  paid =
+    false;
+
 
 
   const productRect =
@@ -1177,9 +1293,11 @@ function dispenseProduct(product) {
     machine.getBoundingClientRect();
 
 
-  /*
-    创建商品副本
-  */
+
+  /* ==================================================
+     CREATE FALLING PRODUCT
+  ================================================== */
+
 
   const falling =
     document.createElement(
@@ -1236,17 +1354,21 @@ function dispenseProduct(product) {
   );
 
 
-  /*
-    原商品消失
-  */
+
+  /* ==================================================
+     ORIGINAL PRODUCT DISAPPEARS
+  ================================================== */
+
 
   product.style.visibility =
     "hidden";
 
 
-  /*
-    取货口位置
-  */
+
+  /* ==================================================
+     PICKUP POSITION
+  ================================================== */
+
 
   const pickupX =
     machineRect.left +
@@ -1260,12 +1382,15 @@ function dispenseProduct(product) {
     0.82;
 
 
-  /*
-    开始掉落
-  */
+
+  /* ==================================================
+     FALL
+  ================================================== */
+
 
   requestAnimationFrame(
     function() {
+
 
       requestAnimationFrame(
         function() {
@@ -1288,11 +1413,14 @@ function dispenseProduct(product) {
           falling.style.transform =
             "rotate(12deg) scale(.95)";
 
+
         }
       );
 
+
     }
   );
+
 
 
   status.textContent =
@@ -1303,9 +1431,11 @@ function dispenseProduct(product) {
     "DISPENSING...";
 
 
-  /*
-    到取货口
-  */
+
+  /* ==================================================
+     PICK UP
+  ================================================== */
+
 
   setTimeout(
     function() {
@@ -1325,9 +1455,11 @@ function dispenseProduct(product) {
   );
 
 
-  /*
-    停留以后淡出
-  */
+
+  /* ==================================================
+     FADE
+  ================================================== */
+
 
   setTimeout(
     function() {
@@ -1346,9 +1478,11 @@ function dispenseProduct(product) {
   );
 
 
-  /*
-    RESET
-  */
+
+  /* ==================================================
+     RESET
+  ================================================== */
+
 
   setTimeout(
     function() {
@@ -1365,22 +1499,6 @@ function dispenseProduct(product) {
         "show"
       );
 
-
-      /*
-        投币区恢复红色
-      */
-
-      coinSlot.style.background =
-        "rgba(255,0,0,.20)";
-
-
-      coinSlot.style.border =
-        "2px solid red";
-
-
-      /*
-        硬币恢复
-      */
 
       resetCoin();
 
@@ -1400,6 +1518,7 @@ function dispenseProduct(product) {
     },
     2900
   );
+
 
 }
 
