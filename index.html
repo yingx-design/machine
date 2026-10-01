@@ -20,7 +20,10 @@ html, body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* 整个页面 */
+/* =========================
+   PAGE
+========================= */
+
 .stage {
   width: 100vw;
   height: 100vh;
@@ -29,35 +32,50 @@ html, body {
 }
 
 /* 左上角提示 */
+
 .instruction {
   position: absolute;
   top: 28px;
   left: 28px;
   z-index: 100;
+
   font-size: 14px;
   letter-spacing: 1.2px;
   color: #111;
 }
 
-/* 自动售货机 */
+
+/* =========================
+   VENDING MACHINE
+========================= */
+
 .machine-wrap {
   position: absolute;
+
   height: 100vh;
   width: auto;
+
   left: 50%;
   top: 0;
+
   transform: translateX(-50%);
 }
 
 .machine {
   height: 100vh;
   width: auto;
+
   display: block;
+
   user-select: none;
   pointer-events: none;
 }
 
-/* 商品 */
+
+/* =========================
+   PRODUCTS
+========================= */
+
 .product {
   position: absolute;
   z-index: 20;
@@ -70,6 +88,7 @@ html, body {
   cursor: pointer;
 
   transform: translate(-50%, -50%);
+
   transition:
     transform 0.18s ease,
     filter 0.18s ease,
@@ -79,12 +98,88 @@ html, body {
   -webkit-user-drag: none;
 }
 
+
+/* =========================
+   INDIVIDUAL PRODUCT SIZES
+   每张PNG视觉比例不同
+========================= */
+
+/* GroundCycle */
+.product[data-code="A1"] {
+  width: 12%;
+  height: 15%;
+}
+
+/* Social Cloud */
+.product[data-code="A2"] {
+  width: 14%;
+  height: 16%;
+}
+
+/* Dad Healer */
+.product[data-code="A3"] {
+  width: 18%;
+  height: 18%;
+}
+
+/* Before I Speak */
+.product[data-code="B1"] {
+  width: 18%;
+  height: 18%;
+}
+
+/* Perfume */
+.product[data-code="B2"] {
+  width: 16%;
+  height: 17%;
+}
+
+/* Body Fonts */
+.product[data-code="B3"] {
+  width: 18%;
+  height: 18%;
+}
+
+/* City Walk */
+.product[data-code="C1"] {
+  width: 17%;
+  height: 18%;
+}
+
+/* Quiet Town */
+.product[data-code="C2"] {
+  width: 17%;
+  height: 18%;
+}
+
+/* Hypertext */
+.product[data-code="C3"] {
+  width: 17%;
+  height: 18%;
+}
+
+/* In Between */
+.product[data-code="D1"] {
+  width: 17%;
+  height: 18%;
+}
+
+
+/* HOVER */
+
 .product:hover {
-  transform: translate(-50%, -50%) scale(1.12);
+  transform:
+    translate(-50%, -50%)
+    scale(1.12);
+
   filter: brightness(1.08);
 }
 
-/* 商品编号 */
+
+/* =========================
+   PRODUCT CODE
+========================= */
+
 .code {
   position: absolute;
   z-index: 25;
@@ -104,7 +199,11 @@ html, body {
   pointer-events: none;
 }
 
-/* 硬币 */
+
+/* =========================
+   COIN
+========================= */
+
 #coin {
   position: absolute;
 
@@ -123,14 +222,17 @@ html, body {
   user-select: none;
   -webkit-user-drag: none;
 
-  filter: drop-shadow(0 4px 4px rgba(0,0,0,.25));
+  filter:
+    drop-shadow(0 4px 4px rgba(0,0,0,.25));
 }
 
 #coin:active {
   cursor: grabbing;
 }
 
-/* 投币口热区 */
+
+/* 投币口 */
+
 #coinSlot {
   position: absolute;
 
@@ -143,7 +245,9 @@ html, body {
   z-index: 50;
 }
 
-/* INSERT COIN 提示 */
+
+/* INSERT COIN */
+
 .coin-label {
   position: absolute;
 
@@ -165,7 +269,9 @@ html, body {
   pointer-events: none;
 }
 
-/* 屏幕状态 */
+
+/* MONEY DISPLAY */
+
 .status {
   position: absolute;
 
@@ -184,51 +290,94 @@ html, body {
   pointer-events: none;
 }
 
-/* 掉落商品 */
+
+/* =========================
+   DROPPING PRODUCT
+========================= */
+
 .dropping {
   pointer-events: none !important;
+
   z-index: 80 !important;
 
   transition:
     top 1.15s cubic-bezier(.25,.75,.35,1),
-    transform 1.15s cubic-bezier(.25,.75,.35,1) !important;
+    transform 1.15s cubic-bezier(.25,.75,.35,1)
+    !important;
 }
 
-/* 到达取货口 */
+
+/* 到达下面 */
+
 .arrived {
   animation: bounce .45s ease;
 }
 
 @keyframes bounce {
+
   0% {
-    transform: translate(-50%, -50%) scale(1);
+    transform:
+      translate(-50%, -50%)
+      scale(1);
   }
 
   45% {
-    transform: translate(-50%, -50%) scale(1.18);
+    transform:
+      translate(-50%, -50%)
+      scale(1.18);
   }
 
   70% {
-    transform: translate(-50%, -50%) scale(.94);
+    transform:
+      translate(-50%, -50%)
+      scale(.94);
   }
 
   100% {
-    transform: translate(-50%, -50%) scale(1);
+    transform:
+      translate(-50%, -50%)
+      scale(1);
   }
+
 }
 
-/* 未投币时点击商品的提示 */
+
+/* 没投币 */
+
 .shake {
   animation: shake .3s ease;
 }
 
 @keyframes shake {
-  0%,100% { transform: translate(-50%, -50%); }
-  25% { transform: translate(calc(-50% - 5px), -50%); }
-  75% { transform: translate(calc(-50% + 5px), -50%); }
+
+  0%, 100% {
+    transform:
+      translate(-50%, -50%);
+  }
+
+  25% {
+    transform:
+      translate(
+        calc(-50% - 5px),
+        -50%
+      );
+  }
+
+  75% {
+    transform:
+      translate(
+        calc(-50% + 5px),
+        -50%
+      );
+  }
+
 }
 
-/* 手机 */
+
+/* =========================
+   MOBILE
+========================= */
+
 @media (max-width: 800px) {
 
   .machine-wrap {
@@ -245,21 +394,32 @@ html, body {
     width: 45px;
     height: 45px;
   }
+
 }
+
 </style>
 </head>
+
 
 <body>
 
 <div class="stage">
 
-  <div class="instruction" id="instruction">
+  <div
+    class="instruction"
+    id="instruction"
+  >
     DRAG THE COIN → INSERT COIN
   </div>
 
-  <div class="machine-wrap" id="machineWrap">
 
-    <!-- 自动售货机 -->
+  <div
+    class="machine-wrap"
+    id="machineWrap"
+  >
+
+    <!-- VENDING MACHINE -->
+
     <img
       src="vending-machine.png"
       class="machine"
@@ -267,149 +427,292 @@ html, body {
       alt="Vending Machine"
     >
 
-    <!-- 第一排 -->
+
+    <!-- =====================
+         ROW A
+    ====================== -->
+
+
+    <!-- A1 GroundCycle -->
 
     <img
       src="groundcycle.png"
       class="product"
       data-code="A1"
-      style="left:20%; top:25%;"
+      style="
+        left:20%;
+        top:25%;
+      "
     >
 
-    <div class="code" style="left:20%; top:31%;">
+    <div
+      class="code"
+      style="
+        left:20%;
+        top:31%;
+      "
+    >
       A1
     </div>
 
+
+    <!-- A2 Social Cloud -->
 
     <img
       src="social-cloud.png"
       class="product"
       data-code="A2"
-      style="left:40%; top:25%;"
+      style="
+        left:40%;
+        top:25%;
+      "
     >
 
-    <div class="code" style="left:40%; top:31%;">
+    <div
+      class="code"
+      style="
+        left:40%;
+        top:31%;
+      "
+    >
       A2
     </div>
 
+
+    <!-- A3 Dad Healer -->
 
     <img
       src="dad-healer.png"
       class="product"
       data-code="A3"
-      style="left:60%; top:25%;"
+      style="
+        left:60%;
+        top:25%;
+      "
     >
 
-    <div class="code" style="left:60%; top:31%;">
+    <div
+      class="code"
+      style="
+        left:60%;
+        top:31%;
+      "
+    >
       A3
     </div>
 
 
-    <!-- 第二排 -->
+
+    <!-- =====================
+         ROW B
+    ====================== -->
+
+
+    <!-- B1 Before I Speak -->
 
     <img
       src="before-i-speak.png"
       class="product"
       data-code="B1"
-      style="left:20%; top:43%;"
+      style="
+        left:20%;
+        top:43%;
+      "
     >
 
-    <div class="code" style="left:20%; top:49%;">
+    <div
+      class="code"
+      style="
+        left:20%;
+        top:49%;
+      "
+    >
       B1
     </div>
 
+
+    <!-- B2 Perfume -->
 
     <img
       src="perfume.png"
       class="product"
       data-code="B2"
-      style="left:40%; top:43%;"
+      style="
+        left:40%;
+        top:43%;
+      "
     >
 
-    <div class="code" style="left:40%; top:49%;">
+    <div
+      class="code"
+      style="
+        left:40%;
+        top:49%;
+      "
+    >
       B2
     </div>
 
+
+    <!-- B3 Body Fonts -->
 
     <img
       src="body-fonts.png"
       class="product"
       data-code="B3"
-      style="left:60%; top:43%;"
+      style="
+        left:60%;
+        top:43%;
+      "
     >
 
-    <div class="code" style="left:60%; top:49%;">
+    <div
+      class="code"
+      style="
+        left:60%;
+        top:49%;
+      "
+    >
       B3
     </div>
 
 
-    <!-- 第三排 -->
+
+    <!-- =====================
+         ROW C
+    ====================== -->
+
+
+    <!-- C1 City Walk -->
 
     <img
       src="city-walk.png"
       class="product"
       data-code="C1"
-      style="left:20%; top:61%;"
+      style="
+        left:20%;
+        top:61%;
+      "
     >
 
-    <div class="code" style="left:20%; top:67%;">
+    <div
+      class="code"
+      style="
+        left:20%;
+        top:67%;
+      "
+    >
       C1
     </div>
 
+
+    <!-- C2 Quiet Town -->
 
     <img
       src="quiet-town.png"
       class="product"
       data-code="C2"
-      style="left:40%; top:61%;"
+      style="
+        left:40%;
+        top:61%;
+      "
     >
 
-    <div class="code" style="left:40%; top:67%;">
+    <div
+      class="code"
+      style="
+        left:40%;
+        top:67%;
+      "
+    >
       C2
     </div>
 
+
+    <!-- C3 Hypertext -->
 
     <img
       src="hypertext.png"
       class="product"
       data-code="C3"
-      style="left:60%; top:61%;"
+      style="
+        left:60%;
+        top:61%;
+      "
     >
 
-    <div class="code" style="left:60%; top:67%;">
+    <div
+      class="code"
+      style="
+        left:60%;
+        top:67%;
+      "
+    >
       C3
     </div>
 
 
-    <!-- 第四排 -->
+
+    <!-- =====================
+         ROW D
+    ====================== -->
+
+
+    <!-- D1 In Between -->
 
     <img
       src="in-between.png"
       class="product"
       data-code="D1"
-      style="left:30%; top:76%;"
+      style="
+        left:30%;
+        top:76%;
+      "
     >
 
-    <div class="code" style="left:30%; top:82%;">
+    <div
+      class="code"
+      style="
+        left:30%;
+        top:82%;
+      "
+    >
       D1
     </div>
 
+
   </div>
 
 
-  <!-- 投币口 -->
+
+  <!-- =====================
+       COIN SLOT
+  ====================== -->
+
   <div id="coinSlot"></div>
 
-  <div class="coin-label" id="coinLabel">
+
+  <div
+    class="coin-label"
+    id="coinLabel"
+  >
     INSERT COIN
   </div>
 
-  <div class="status" id="status">
+
+  <div
+    class="status"
+    id="status"
+  >
     $0.00
   </div>
 
 
-  <!-- 可以拖动的硬币 -->
+
+  <!-- =====================
+       COIN
+  ====================== -->
+
   <img
     src="coin.png"
     id="coin"
@@ -417,97 +720,155 @@ html, body {
     draggable="false"
   >
 
+
 </div>
+
 
 
 <script>
 
-const coin = document.getElementById("coin");
-const coinSlot = document.getElementById("coinSlot");
-const instruction = document.getElementById("instruction");
-const status = document.getElementById("status");
-const coinLabel = document.getElementById("coinLabel");
+/* =========================
+   ELEMENTS
+========================= */
 
-const products = document.querySelectorAll(".product");
+const coin =
+  document.getElementById("coin");
+
+const coinSlot =
+  document.getElementById("coinSlot");
+
+const instruction =
+  document.getElementById("instruction");
+
+const status =
+  document.getElementById("status");
+
+const coinLabel =
+  document.getElementById("coinLabel");
+
+const products =
+  document.querySelectorAll(".product");
+
 
 let paid = false;
 
 let dragging = false;
+
 let offsetX = 0;
 let offsetY = 0;
+
 
 
 /* =========================
    DRAG COIN
 ========================= */
 
-coin.addEventListener("pointerdown", function(e) {
+coin.addEventListener(
+  "pointerdown",
+  function(e) {
 
-  if (paid) return;
+    if (paid) return;
 
-  dragging = true;
+    dragging = true;
 
-  coin.setPointerCapture(e.pointerId);
+    coin.setPointerCapture(
+      e.pointerId
+    );
 
-  const rect = coin.getBoundingClientRect();
+    const rect =
+      coin.getBoundingClientRect();
 
-  offsetX = e.clientX - rect.left;
-  offsetY = e.clientY - rect.top;
+    offsetX =
+      e.clientX - rect.left;
 
-});
-
-
-coin.addEventListener("pointermove", function(e) {
-
-  if (!dragging) return;
-
-  coin.style.left =
-    (e.clientX - offsetX) + "px";
-
-  coin.style.top =
-    (e.clientY - offsetY) + "px";
-
-});
-
-
-coin.addEventListener("pointerup", function(e) {
-
-  if (!dragging) return;
-
-  dragging = false;
-
-  const coinRect =
-    coin.getBoundingClientRect();
-
-  const slotRect =
-    coinSlot.getBoundingClientRect();
-
-
-  const coinCenterX =
-    coinRect.left + coinRect.width / 2;
-
-  const coinCenterY =
-    coinRect.top + coinRect.height / 2;
-
-
-  const inside =
-    coinCenterX > slotRect.left &&
-    coinCenterX < slotRect.right &&
-    coinCenterY > slotRect.top &&
-    coinCenterY < slotRect.bottom;
-
-
-  if (inside) {
-
-    insertCoin();
-
-  } else {
-
-    resetCoin();
+    offsetY =
+      e.clientY - rect.top;
 
   }
+);
 
-});
+
+
+coin.addEventListener(
+  "pointermove",
+  function(e) {
+
+    if (!dragging) return;
+
+    coin.style.left =
+      (e.clientX - offsetX)
+      + "px";
+
+    coin.style.top =
+      (e.clientY - offsetY)
+      + "px";
+
+  }
+);
+
+
+
+coin.addEventListener(
+  "pointerup",
+  function(e) {
+
+    if (!dragging) return;
+
+    dragging = false;
+
+
+    const coinRect =
+      coin.getBoundingClientRect();
+
+    const slotRect =
+      coinSlot.getBoundingClientRect();
+
+
+    const coinCenterX =
+      coinRect.left
+      + coinRect.width / 2;
+
+    const coinCenterY =
+      coinRect.top
+      + coinRect.height / 2;
+
+
+    const inside =
+
+      coinCenterX >
+      slotRect.left
+
+      &&
+
+      coinCenterX <
+      slotRect.right
+
+      &&
+
+      coinCenterY >
+      slotRect.top
+
+      &&
+
+      coinCenterY <
+      slotRect.bottom;
+
+
+    if (inside) {
+
+      insertCoin();
+
+    }
+
+    else {
+
+      resetCoin();
+
+    }
+
+  }
+);
+
 
 
 /* =========================
@@ -518,40 +879,61 @@ function insertCoin() {
 
   paid = true;
 
+
   coin.style.transition =
     "all .28s ease";
+
 
   const slotRect =
     coinSlot.getBoundingClientRect();
 
+
   coin.style.left =
-    (slotRect.left + slotRect.width / 2 - 29) + "px";
+    (
+      slotRect.left
+      + slotRect.width / 2
+      - 29
+    )
+    + "px";
+
 
   coin.style.top =
-    (slotRect.top + slotRect.height / 2 - 29) + "px";
+    (
+      slotRect.top
+      + slotRect.height / 2
+      - 29
+    )
+    + "px";
+
 
   coin.style.transform =
     "scale(.15) rotate(90deg)";
 
-  coin.style.opacity = "0";
+  coin.style.opacity =
+    "0";
 
 
   setTimeout(() => {
 
-    coin.style.display = "none";
+    coin.style.display =
+      "none";
 
   }, 280);
 
 
-  status.textContent = "$1.00";
+  status.textContent =
+    "$1.00";
+
 
   coinLabel.textContent =
     "SELECT ITEM";
+
 
   instruction.textContent =
     "COIN ACCEPTED → SELECT SOMETHING";
 
 }
+
 
 
 /* =========================
@@ -563,23 +945,28 @@ function resetCoin() {
   coin.style.transition =
     "all .35s ease";
 
+
   coin.style.left =
     "calc(50% + 390px)";
+
 
   coin.style.top =
     "72%";
 
+
   setTimeout(() => {
 
-    coin.style.transition = "";
+    coin.style.transition =
+      "";
 
   }, 350);
 
 }
 
 
+
 /* =========================
-   PRODUCTS
+   PRODUCT CLICK
 ========================= */
 
 products.forEach(product => {
@@ -588,18 +975,28 @@ products.forEach(product => {
     "click",
     function() {
 
+
       if (!paid) {
 
         instruction.textContent =
           "INSERT COIN FIRST";
 
-        coinLabel.classList.remove("shake");
+
+        coinLabel.classList.remove(
+          "shake"
+        );
+
 
         void coinLabel.offsetWidth;
 
-        coinLabel.classList.add("shake");
+
+        coinLabel.classList.add(
+          "shake"
+        );
+
 
         return;
+
       }
 
 
@@ -609,6 +1006,7 @@ products.forEach(product => {
   );
 
 });
+
 
 
 /* =========================
@@ -627,56 +1025,89 @@ function dropProduct(original) {
     original.getBoundingClientRect();
 
 
+
   /*
-    创建一个复制品。
-    原来的商品还留在机器里面，
-    新的这个负责掉下来。
+    COPY PRODUCT
+
+    原商品继续留在机器里
+    clone负责掉下来
   */
 
   const clone =
     original.cloneNode(true);
 
 
-  clone.classList.add("dropping");
+  clone.classList.add(
+    "dropping"
+  );
+
 
   clone.style.position =
     "fixed";
 
+
   clone.style.left =
-    (rect.left + rect.width / 2) + "px";
+    (
+      rect.left
+      + rect.width / 2
+    )
+    + "px";
+
 
   clone.style.top =
-    (rect.top + rect.height / 2) + "px";
+    (
+      rect.top
+      + rect.height / 2
+    )
+    + "px";
+
+
+  /*
+    非常重要：
+    掉下来的商品保持
+    当前商品自己的尺寸
+  */
 
   clone.style.width =
     rect.width + "px";
 
+
   clone.style.height =
     rect.height + "px";
 
-  clone.style.margin = "0";
+
+  clone.style.margin =
+    "0";
+
 
   clone.style.transform =
     "translate(-50%, -50%)";
 
-  document.body.appendChild(clone);
+
+  document.body.appendChild(
+    clone
+  );
+
 
 
   instruction.textContent =
-    "DISPENSING " +
-    original.dataset.code +
-    "...";
+    "DISPENSING "
+    + original.dataset.code
+    + "...";
+
 
   coinLabel.textContent =
     "VENDING";
+
 
   status.textContent =
     "$0.00";
 
 
-  /*
-    下一帧开始掉落
-  */
+
+  /* =========================
+     START FALL
+  ========================= */
 
   requestAnimationFrame(() => {
 
@@ -684,6 +1115,7 @@ function dropProduct(original) {
 
       clone.style.top =
         "91vh";
+
 
       clone.style.transform =
         "translate(-50%, -50%) rotate(8deg)";
@@ -693,18 +1125,27 @@ function dropProduct(original) {
   });
 
 
-  /*
-    到达底部
-  */
+
+  /* =========================
+     ARRIVED
+  ========================= */
 
   setTimeout(() => {
 
-    clone.classList.remove("dropping");
 
-    clone.classList.add("arrived");
+    clone.classList.remove(
+      "dropping"
+    );
+
+
+    clone.classList.add(
+      "arrived"
+    );
+
 
     clone.style.cursor =
       "pointer";
+
 
     clone.style.pointerEvents =
       "auto";
@@ -718,19 +1159,25 @@ function dropProduct(original) {
       "THANK YOU";
 
 
+
     /*
-      点击掉出来的商品，
-      它会消失，然后可以重新投币。
+      点击掉出来的商品
+      商品消失
+      自动售货机重新开始
     */
 
     clone.addEventListener(
       "click",
       function() {
 
+
         clone.style.transition =
           "all .3s ease";
 
-        clone.style.opacity = "0";
+
+        clone.style.opacity =
+          "0";
+
 
         clone.style.transform =
           "translate(-50%, -50%) scale(.7)";
@@ -744,12 +1191,15 @@ function dropProduct(original) {
 
         }, 300);
 
+
       }
     );
+
 
   }, 1200);
 
 }
+
 
 
 /* =========================
@@ -760,16 +1210,26 @@ function resetMachine() {
 
   paid = false;
 
-  coin.style.display = "block";
 
-  coin.style.opacity = "1";
+  coin.style.display =
+    "block";
 
-  coin.style.transform = "none";
 
-  coin.style.transition = "none";
+  coin.style.opacity =
+    "1";
+
+
+  coin.style.transform =
+    "none";
+
+
+  coin.style.transition =
+    "none";
+
 
   coin.style.left =
     "calc(50% + 390px)";
+
 
   coin.style.top =
     "72%";
@@ -778,8 +1238,10 @@ function resetMachine() {
   status.textContent =
     "$0.00";
 
+
   coinLabel.textContent =
     "INSERT COIN";
+
 
   instruction.textContent =
     "DRAG THE COIN → INSERT COIN";
