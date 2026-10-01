@@ -122,8 +122,6 @@ body {
    ROW A
 ================================================== */
 
-/* A1 — 第一竖排 */
-
 #a1 {
   width: 125px;
   height: 140px;
@@ -132,9 +130,6 @@ body {
   top: 18%;
 }
 
-
-/* A2 — 第二竖排 */
-
 #a2 {
   width: 118px;
   height: 118px;
@@ -142,9 +137,6 @@ body {
   left: 43%;
   top: 18%;
 }
-
-
-/* A3 — 第三竖排 */
 
 #a3 {
   width: 118px;
@@ -167,7 +159,6 @@ body {
   top: 35%;
 }
 
-
 #b2 {
   width: 115px;
   height: 135px;
@@ -175,7 +166,6 @@ body {
   left: 43%;
   top: 35%;
 }
-
 
 #b3 {
   width: 118px;
@@ -198,7 +188,6 @@ body {
   top: 52%;
 }
 
-
 #c2 {
   width: 118px;
   height: 122px;
@@ -206,7 +195,6 @@ body {
   left: 43%;
   top: 52%;
 }
-
 
 #c3 {
   width: 112px;
@@ -255,9 +243,7 @@ body {
 }
 
 
-/* ==================================================
-   ROW A LABELS
-================================================== */
+/* A */
 
 #a1-label {
   left: 18%;
@@ -275,9 +261,7 @@ body {
 }
 
 
-/* ==================================================
-   ROW B LABELS
-================================================== */
+/* B */
 
 #b1-label {
   left: 18%;
@@ -295,9 +279,7 @@ body {
 }
 
 
-/* ==================================================
-   ROW C LABELS
-================================================== */
+/* C */
 
 #c1-label {
   left: 18%;
@@ -315,9 +297,7 @@ body {
 }
 
 
-/* ==================================================
-   ROW D LABEL
-================================================== */
+/* D */
 
 #d1-label {
   left: 18%;
@@ -342,6 +322,77 @@ body {
 
   background: transparent;
   border: none;
+}
+
+
+/* ==================================================
+   PICKUP GLOW
+================================================== */
+
+/*
+  这个区域只负责发光。
+  不会显示边框。
+*/
+
+.pickup-glow {
+  position: absolute;
+
+  left: 12%;
+  top: 77%;
+
+  width: 60%;
+  height: 12%;
+
+  z-index: 8;
+
+  pointer-events: none;
+
+  border-radius: 12px;
+
+  opacity: 0;
+
+  box-shadow:
+    0 0 15px rgba(255,255,255,0),
+    0 0 30px rgba(255,255,255,0);
+
+  transition:
+    opacity .35s ease,
+    box-shadow .35s ease;
+}
+
+
+/*
+  商品掉下来以后开始呼吸发光
+*/
+
+.pickup-glow.active {
+  opacity: 1;
+
+  animation:
+    pickupPulse 1.2s ease-in-out infinite;
+}
+
+
+@keyframes pickupPulse {
+
+  0% {
+    box-shadow:
+      0 0 10px rgba(255,255,255,.15),
+      0 0 20px rgba(255,255,255,.08);
+  }
+
+  50% {
+    box-shadow:
+      0 0 18px rgba(255,255,255,.60),
+      0 0 38px rgba(255,255,255,.28);
+  }
+
+  100% {
+    box-shadow:
+      0 0 10px rgba(255,255,255,.15),
+      0 0 20px rgba(255,255,255,.08);
+  }
+
 }
 
 
@@ -438,19 +489,165 @@ body {
 
 
 /* ==================================================
-   FALLING PRODUCT
+   FALLING / PICKUP PRODUCT
 ================================================== */
 
 .dispensing {
   position: fixed;
 
-  z-index: 9998;
+  z-index: 500;
+
+  object-fit: contain;
+
+  transform-origin: center;
+
+  pointer-events: none;
+}
+
+
+/*
+  商品已经掉到取货口以后
+  允许点击
+*/
+
+.dispensing.ready {
+  pointer-events: auto;
+
+  cursor: pointer;
+
+  transition:
+    transform .2s ease,
+    filter .2s ease;
+
+  filter:
+    drop-shadow(
+      0 8px 10px
+      rgba(0,0,0,.35)
+    );
+}
+
+
+.dispensing.ready:hover {
+  transform:
+    rotate(8deg)
+    scale(1.08) !important;
+
+  filter:
+    drop-shadow(
+      0 10px 14px
+      rgba(0,0,0,.45)
+    );
+}
+
+
+/* ==================================================
+   MODAL / DARK BACKGROUND
+================================================== */
+
+.product-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9000;
+
+  background:
+    rgba(0,0,0,.68);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    opacity .35s ease;
+
+  cursor: zoom-out;
+}
+
+
+.product-overlay.show {
+  opacity: 1;
+
+  pointer-events: auto;
+}
+
+
+/* ==================================================
+   LARGE PRODUCT
+================================================== */
+
+.large-product {
+  position: fixed;
+
+  z-index: 9001;
 
   object-fit: contain;
 
   pointer-events: none;
 
-  transform-origin: center;
+  filter:
+    drop-shadow(
+      0 25px 35px
+      rgba(0,0,0,.40)
+    );
+
+  transition:
+    left .55s cubic-bezier(.2,.8,.2,1),
+    top .55s cubic-bezier(.2,.8,.2,1),
+    width .55s cubic-bezier(.2,.8,.2,1),
+    height .55s cubic-bezier(.2,.8,.2,1),
+    transform .55s cubic-bezier(.2,.8,.2,1);
+}
+
+
+/* ==================================================
+   CLOSE BUTTON
+================================================== */
+
+.close-button {
+  position: fixed;
+
+  right: 32px;
+  top: 25px;
+
+  z-index: 9002;
+
+  width: 46px;
+  height: 46px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: white;
+  color: black;
+
+  font-size: 27px;
+  font-weight: 300;
+
+  line-height: 46px;
+  text-align: center;
+
+  cursor: pointer;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    opacity .3s ease,
+    transform .2s ease;
+}
+
+
+.close-button.show {
+  opacity: 1;
+
+  pointer-events: auto;
+}
+
+
+.close-button:hover {
+  transform: scale(1.08);
 }
 
 
@@ -480,6 +677,16 @@ body {
     bottom: 15px;
   }
 
+  .close-button {
+    right: 18px;
+    top: 18px;
+
+    width: 40px;
+    height: 40px;
+
+    line-height: 40px;
+  }
+
 }
 
 </style>
@@ -491,7 +698,9 @@ body {
 <div class="page">
 
 
-  <!-- INSTRUCTION -->
+  <!-- ==================================================
+       INSTRUCTION
+  ================================================== -->
 
   <div
     class="instruction"
@@ -501,7 +710,9 @@ body {
   </div>
 
 
-  <!-- MACHINE -->
+  <!-- ==================================================
+       MACHINE
+  ================================================== -->
 
   <div
     class="machine"
@@ -524,7 +735,17 @@ body {
     ></div>
 
 
-    <!-- ROW A -->
+    <!-- PICKUP GLOW -->
+
+    <div
+      class="pickup-glow"
+      id="pickupGlow"
+    ></div>
+
+
+    <!-- ==================================================
+         ROW A
+    ================================================== -->
 
     <img
       src="groundcycle.png"
@@ -574,7 +795,9 @@ body {
     </div>
 
 
-    <!-- ROW B -->
+    <!-- ==================================================
+         ROW B
+    ================================================== -->
 
     <img
       src="before-i-speak.png"
@@ -624,7 +847,9 @@ body {
     </div>
 
 
-    <!-- ROW C -->
+    <!-- ==================================================
+         ROW C
+    ================================================== -->
 
     <img
       src="city-walk.png"
@@ -674,7 +899,9 @@ body {
     </div>
 
 
-    <!-- ROW D -->
+    <!-- ==================================================
+         ROW D
+    ================================================== -->
 
     <img
       src="in-between.png"
@@ -695,7 +922,9 @@ body {
   </div>
 
 
-  <!-- COIN -->
+  <!-- ==================================================
+       COIN
+  ================================================== -->
 
   <img
     src="coin.png"
@@ -706,7 +935,9 @@ body {
   >
 
 
-  <!-- STATUS -->
+  <!-- ==================================================
+       STATUS
+  ================================================== -->
 
   <div
     class="status"
@@ -716,7 +947,9 @@ body {
   </div>
 
 
-  <!-- THANK YOU -->
+  <!-- ==================================================
+       THANK YOU
+  ================================================== -->
 
   <div
     class="thankyou"
@@ -727,6 +960,30 @@ body {
 
 
 </div>
+
+
+<!-- ==================================================
+     MODAL BACKGROUND
+================================================== -->
+
+<div
+  class="product-overlay"
+  id="productOverlay"
+></div>
+
+
+<!-- ==================================================
+     CLOSE
+================================================== -->
+
+<button
+  class="close-button"
+  id="closeButton"
+  aria-label="Close"
+>
+  ×
+</button>
+
 
 
 <script>
@@ -756,6 +1013,15 @@ const instruction =
 const products =
   document.querySelectorAll(".product");
 
+const pickupGlow =
+  document.getElementById("pickupGlow");
+
+const productOverlay =
+  document.getElementById("productOverlay");
+
+const closeButton =
+  document.getElementById("closeButton");
+
 
 /* ==================================================
    STATE
@@ -767,9 +1033,17 @@ let paid = false;
 
 let dispensing = false;
 
+let viewingProduct = false;
+
 let offsetX = 0;
 
 let offsetY = 0;
+
+let pickupProduct = null;
+
+let originalProduct = null;
+
+let largeProduct = null;
 
 
 /* ==================================================
@@ -782,7 +1056,8 @@ coin.addEventListener(
 
     if (
       paid ||
-      dispensing
+      dispensing ||
+      viewingProduct
     ) {
       return;
     }
@@ -988,7 +1263,10 @@ products.forEach(
       "click",
       function() {
 
-        if (dispensing) {
+        if (
+          dispensing ||
+          viewingProduct
+        ) {
           return;
         }
 
@@ -1052,11 +1330,12 @@ function dispenseProduct(
   }
 
 
-  dispensing =
-    true;
+  dispensing = true;
 
-  paid =
-    false;
+  paid = false;
+
+  originalProduct =
+    product;
 
 
   const productRect =
@@ -1125,6 +1404,12 @@ function dispenseProduct(
     "hidden";
 
 
+  /*
+     PICKUP POSITION
+
+     保留之前的掉落逻辑
+  */
+
   const pickupX =
     machineRect.left +
     machineRect.width *
@@ -1158,7 +1443,7 @@ function dispenseProduct(
 
 
           falling.style.transform =
-            "rotate(12deg) scale(.95)";
+            "rotate(8deg) scale(.95)";
 
         }
       );
@@ -1174,63 +1459,432 @@ function dispenseProduct(
     "DISPENSING...";
 
 
+  /*
+     商品到达取货口
+  */
+
   setTimeout(
     function() {
+
+      pickupProduct =
+        falling;
+
+
+      falling.classList.add(
+        "ready"
+      );
+
+
+      pickupGlow.classList.add(
+        "active"
+      );
+
 
       thankyou.classList.add(
         "show"
       );
 
+
       instruction.textContent =
-        "PICK UP YOUR DESIGN";
-
-    },
-    850
-  );
+        "CLICK YOUR DESIGN TO PICK IT UP";
 
 
-  setTimeout(
-    function() {
+      falling.addEventListener(
+        "click",
+        function() {
 
-      falling.style.transition =
-        "opacity .35s ease";
+          openProduct(
+            falling
+          );
 
-      falling.style.opacity =
-        "0";
-
-    },
-    2500
-  );
-
-
-  setTimeout(
-    function() {
-
-      falling.remove();
-
-      product.style.visibility =
-        "visible";
-
-      thankyou.classList.remove(
-        "show"
+        },
+        {
+          once: true
+        }
       );
 
-      resetCoin();
 
-      status.textContent =
-        "$0.00";
+    },
+    900
+  );
 
-      instruction.textContent =
-        "DRAG THE COIN → SELECT SOMETHING";
+}
+
+
+/* ==================================================
+   OPEN / ENLARGE PRODUCT
+================================================== */
+
+function openProduct(
+  pickupItem
+) {
+
+  if (viewingProduct) {
+    return;
+  }
+
+
+  viewingProduct =
+    true;
+
+
+  pickupGlow.classList.remove(
+    "active"
+  );
+
+
+  thankyou.classList.remove(
+    "show"
+  );
+
+
+  instruction.textContent =
+    "YOUR DESIGN";
+
+
+  /*
+     获取取货口商品当前位置
+  */
+
+  const rect =
+    pickupItem.getBoundingClientRect();
+
+
+  /*
+     创建放大版本
+  */
+
+  largeProduct =
+    document.createElement(
+      "img"
+    );
+
+
+  largeProduct.src =
+    pickupItem.src;
+
+
+  largeProduct.className =
+    "large-product";
+
+
+  /*
+     从取货口原位置开始
+  */
+
+  largeProduct.style.left =
+    rect.left +
+    "px";
+
+
+  largeProduct.style.top =
+    rect.top +
+    "px";
+
+
+  largeProduct.style.width =
+    rect.width +
+    "px";
+
+
+  largeProduct.style.height =
+    rect.height +
+    "px";
+
+
+  largeProduct.style.transform =
+    "rotate(8deg)";
+
+
+  document.body.appendChild(
+    largeProduct
+  );
+
+
+  /*
+     原取货商品隐藏
+  */
+
+  pickupItem.style.visibility =
+    "hidden";
+
+
+  /*
+     背景出现
+  */
+
+  productOverlay.classList.add(
+    "show"
+  );
+
+
+  closeButton.classList.add(
+    "show"
+  );
+
+
+  /*
+     计算最终放大尺寸
+  */
+
+  const maxWidth =
+    Math.min(
+      window.innerWidth * .55,
+      520
+    );
+
+
+  const maxHeight =
+    Math.min(
+      window.innerHeight * .72,
+      650
+    );
+
+
+  const ratio =
+    rect.width /
+    rect.height;
+
+
+  let finalWidth =
+    maxWidth;
+
+
+  let finalHeight =
+    finalWidth /
+    ratio;
+
+
+  if (
+    finalHeight >
+    maxHeight
+  ) {
+
+    finalHeight =
+      maxHeight;
+
+    finalWidth =
+      finalHeight *
+      ratio;
+
+  }
+
+
+  const finalLeft =
+    (
+      window.innerWidth -
+      finalWidth
+    ) / 2;
+
+
+  const finalTop =
+    (
+      window.innerHeight -
+      finalHeight
+    ) / 2;
+
+
+  /*
+     飞到屏幕中央
+  */
+
+  requestAnimationFrame(
+    function() {
+
+      requestAnimationFrame(
+        function() {
+
+          largeProduct.style.left =
+            finalLeft +
+            "px";
+
+
+          largeProduct.style.top =
+            finalTop +
+            "px";
+
+
+          largeProduct.style.width =
+            finalWidth +
+            "px";
+
+
+          largeProduct.style.height =
+            finalHeight +
+            "px";
+
+
+          largeProduct.style.transform =
+            "rotate(0deg)";
+
+        }
+      );
+
+    }
+  );
+
+}
+
+
+/* ==================================================
+   CLOSE LARGE PRODUCT
+================================================== */
+
+function closeProduct() {
+
+  if (
+    !viewingProduct ||
+    !largeProduct ||
+    !pickupProduct
+  ) {
+    return;
+  }
+
+
+  const pickupRect =
+    pickupProduct.getBoundingClientRect();
+
+
+  /*
+     背景关闭
+  */
+
+  productOverlay.classList.remove(
+    "show"
+  );
+
+
+  closeButton.classList.remove(
+    "show"
+  );
+
+
+  /*
+     大图飞回取货口
+  */
+
+  largeProduct.style.left =
+    pickupRect.left +
+    "px";
+
+
+  largeProduct.style.top =
+    pickupRect.top +
+    "px";
+
+
+  largeProduct.style.width =
+    pickupRect.width +
+    "px";
+
+
+  largeProduct.style.height =
+    pickupRect.height +
+    "px";
+
+
+  largeProduct.style.transform =
+    "rotate(8deg)";
+
+
+  /*
+     动画结束以后彻底恢复
+  */
+
+  setTimeout(
+    function() {
+
+      if (largeProduct) {
+
+        largeProduct.remove();
+
+        largeProduct =
+          null;
+
+      }
+
+
+      if (pickupProduct) {
+
+        pickupProduct.remove();
+
+        pickupProduct =
+          null;
+
+      }
+
+
+      if (originalProduct) {
+
+        originalProduct.style.visibility =
+          "visible";
+
+        originalProduct =
+          null;
+
+      }
+
+
+      viewingProduct =
+        false;
+
 
       dispensing =
         false;
 
+
+      status.textContent =
+        "$0.00";
+
+
+      instruction.textContent =
+        "DRAG THE COIN → SELECT SOMETHING";
+
+
+      resetCoin();
+
     },
-    2900
+    560
   );
 
 }
+
+
+/* ==================================================
+   CLOSE EVENTS
+================================================== */
+
+productOverlay.addEventListener(
+  "click",
+  closeProduct
+);
+
+
+closeButton.addEventListener(
+  "click",
+  closeProduct
+);
+
+
+/*
+   ESC 也可以关闭
+*/
+
+document.addEventListener(
+  "keydown",
+  function(e) {
+
+    if (
+      e.key === "Escape" &&
+      viewingProduct
+    ) {
+
+      closeProduct();
+
+    }
+
+  }
+);
 
 </script>
 
